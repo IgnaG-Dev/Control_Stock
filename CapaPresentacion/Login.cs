@@ -10,26 +10,29 @@ using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
-    public partial class Inicio : Form
+    public partial class Login : Form
     {
-        public Inicio()
+        public Login()
         {
             InitializeComponent();
         }
 
-        private void menuTitulo_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void menucompras_Click(object sender, EventArgs e)
+        private void BSalir_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
-        private void menuventas_Click(object sender, EventArgs e)
+        private void BIngresar_Click(object sender, EventArgs e)
         {
+            Inicio form = new Inicio();
 
+            form.Show();
+            this.Hide();
         }
     }
 }
