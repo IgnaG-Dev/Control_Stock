@@ -31,5 +31,20 @@ namespace CapaPresentacion
         {
 
         }
+
+        private void menuadministracion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iconMenuItem4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contenedor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

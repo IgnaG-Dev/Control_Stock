@@ -33,6 +33,17 @@ namespace CapaPresentacion
 
             form.Show();
             this.Hide();
+
+            form.FormClosing += frm_closing;
+
+        }
+
+        private void frm_closing(object sender, FormClosingEventArgs e)
+        {
+            TBDni.Text = "";
+            TBClave.Text = "";
+
+            this.Show();
         }
     }
 }
