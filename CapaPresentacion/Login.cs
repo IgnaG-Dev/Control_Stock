@@ -36,7 +36,7 @@ namespace CapaPresentacion
 
             Usuario oUsuario = new CN_Usuario().listar().Where(u => u.Documento == TBDni.Text && u.Clave == TBClave.Text).FirstOrDefault();
 
-            if(oUsuario != null)
+            if(oUsuario == null)
             {
                 Inicio form = new Inicio(oUsuario);
 
@@ -59,6 +59,11 @@ namespace CapaPresentacion
             TBClave.Text = "";
 
             this.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
