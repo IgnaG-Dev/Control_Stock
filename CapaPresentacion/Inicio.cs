@@ -40,6 +40,10 @@ namespace CapaPresentacion
                 {
                     iconmenu.Visible = false;
                 }
+                else
+                {
+                    iconmenu.Visible = true;
+                }
             }
 
             BUsuario.Text = usuarioActual.NombreCompleto.ToString();

@@ -32,11 +32,11 @@ namespace CapaPresentacion
 
         private void BIngresar_Click(object sender, EventArgs e)
         {
-            List<Usuario> test = new CN_Usuario().listar();
+            List<Usuario> TEST = new CN_Usuario().listar();
 
             Usuario oUsuario = new CN_Usuario().listar().Where(u => u.Documento == TBDni.Text && u.Clave == TBClave.Text).FirstOrDefault();
 
-            if(oUsuario == null)
+            if(oUsuario != null)
             {
                 Inicio form = new Inicio(oUsuario);
 
