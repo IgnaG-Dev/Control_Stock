@@ -4,12 +4,9 @@ using CapaPresentacion.Modal;
 using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CapaPresentacion
@@ -19,6 +16,8 @@ namespace CapaPresentacion
         private static Usuario usuarioActual;
         private static IconMenuItem menuActivo = null;
         private static Form formularioActivo = null;
+        private Timer timer1;
+
         public Inicio(Usuario objusuario = null)
         {
             if (objusuario == null)
@@ -27,6 +26,12 @@ namespace CapaPresentacion
                 usuarioActual = objusuario;
 
             InitializeComponent();
+
+            // Inicializa el Timer para actualizar la hora
+            timer1 = new Timer();
+            timer1.Interval = 1000; // 1 segundo
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Start();
         }
 
         private void Inicio_Load(object sender, EventArgs e)
@@ -37,22 +42,29 @@ namespace CapaPresentacion
             {
                 bool encontrado = listaPermisos.Any(m => m.NombreMenu == iconmenu.Name);
 
-                if (encontrado == false)
+                if (!encontrado)
                 {
                     iconmenu.Visible = false;
-                }
-                else
-                {
-                    iconmenu.Visible = true;
                 }
             }
 
             BUsuario.Text = usuarioActual.NombreCompleto.ToString();
+
+            // Mostrar la fecha actual al cargar el formulario
+            LFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            LHora.Text = DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        // Evento que se ejecuta cada segundo para actualizar la hora
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            LHora.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void AbrirFormulario(IconMenuItem menu, Form formulario)
         {
-            if (menuActivo != null) {
+            if (menuActivo != null)
+            {
                 menuActivo.BackColor = Color.White;
             }
 
@@ -137,7 +149,6 @@ namespace CapaPresentacion
             AbrirFormulario(menuclientes, new frmClientes());
         }
 
-
         private void submenureportecompras_Click(object sender, EventArgs e)
         {
             AbrirFormulario(menureportes, new frmReporteCompras());
@@ -147,6 +158,5 @@ namespace CapaPresentacion
         {
             AbrirFormulario(menureportes, new frmReporteVentas());
         }
-
     }
 }

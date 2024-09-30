@@ -51,6 +51,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.BUsuario = new System.Windows.Forms.Label();
             this.btnSalir = new FontAwesome.Sharp.IconButton();
+            this.LFecha = new System.Windows.Forms.Label();
+            this.LHora = new System.Windows.Forms.Label();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,7 +115,7 @@
             this.submenucategoria.IconColor = System.Drawing.Color.Black;
             this.submenucategoria.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenucategoria.Name = "submenucategoria";
-            this.submenucategoria.Size = new System.Drawing.Size(184, 34);
+            this.submenucategoria.Size = new System.Drawing.Size(270, 34);
             this.submenucategoria.Text = "Categorias";
             this.submenucategoria.Click += new System.EventHandler(this.submenucategoria_Click);
             // 
@@ -123,7 +125,7 @@
             this.submenuproducto.IconColor = System.Drawing.Color.Black;
             this.submenuproducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenuproducto.Name = "submenuproducto";
-            this.submenuproducto.Size = new System.Drawing.Size(184, 34);
+            this.submenuproducto.Size = new System.Drawing.Size(270, 34);
             this.submenuproducto.Text = "Productos";
             this.submenuproducto.Click += new System.EventHandler(this.submenuproducto_Click);
             // 
@@ -165,7 +167,7 @@
             this.submenuregistrarventa.IconColor = System.Drawing.Color.Black;
             this.submenuregistrarventa.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenuregistrarventa.Name = "submenuregistrarventa";
-            this.submenuregistrarventa.Size = new System.Drawing.Size(192, 34);
+            this.submenuregistrarventa.Size = new System.Drawing.Size(270, 34);
             this.submenuregistrarventa.Text = "Registrar";
             this.submenuregistrarventa.Click += new System.EventHandler(this.submenuregistrarventa_Click);
             // 
@@ -175,7 +177,7 @@
             this.submenuverdetalleventa.IconColor = System.Drawing.Color.Black;
             this.submenuverdetalleventa.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenuverdetalleventa.Name = "submenuverdetalleventa";
-            this.submenuverdetalleventa.Size = new System.Drawing.Size(192, 34);
+            this.submenuverdetalleventa.Size = new System.Drawing.Size(270, 34);
             this.submenuverdetalleventa.Text = "Ver Detalles";
             this.submenuverdetalleventa.Click += new System.EventHandler(this.submenuverdetalleventa_Click);
             // 
@@ -202,7 +204,7 @@
             this.submenuregistrarcompra.IconColor = System.Drawing.Color.Black;
             this.submenuregistrarcompra.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenuregistrarcompra.Name = "submenuregistrarcompra";
-            this.submenuregistrarcompra.Size = new System.Drawing.Size(192, 34);
+            this.submenuregistrarcompra.Size = new System.Drawing.Size(270, 34);
             this.submenuregistrarcompra.Text = "Registrar";
             this.submenuregistrarcompra.Click += new System.EventHandler(this.submenuregistrarcompra_Click);
             // 
@@ -212,7 +214,7 @@
             this.submenuverdetallecompra.IconColor = System.Drawing.Color.Black;
             this.submenuverdetallecompra.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenuverdetallecompra.Name = "submenuverdetallecompra";
-            this.submenuverdetallecompra.Size = new System.Drawing.Size(192, 34);
+            this.submenuverdetallecompra.Size = new System.Drawing.Size(270, 34);
             this.submenuverdetallecompra.Text = "Ver Detalles";
             this.submenuverdetallecompra.Click += new System.EventHandler(this.submenuverdetallecompra_Click);
             // 
@@ -358,12 +360,38 @@
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // LFecha
+            // 
+            this.LFecha.AutoSize = true;
+            this.LFecha.BackColor = System.Drawing.Color.DarkBlue;
+            this.LFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LFecha.ForeColor = System.Drawing.Color.White;
+            this.LFecha.Location = new System.Drawing.Point(409, 41);
+            this.LFecha.Name = "LFecha";
+            this.LFecha.Size = new System.Drawing.Size(71, 29);
+            this.LFecha.TabIndex = 7;
+            this.LFecha.Text = "fecha";
+            // 
+            // LHora
+            // 
+            this.LHora.AutoSize = true;
+            this.LHora.BackColor = System.Drawing.Color.DarkBlue;
+            this.LHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LHora.ForeColor = System.Drawing.Color.White;
+            this.LHora.Location = new System.Drawing.Point(550, 41);
+            this.LHora.Name = "LHora";
+            this.LHora.Size = new System.Drawing.Size(61, 29);
+            this.LHora.TabIndex = 8;
+            this.LHora.Text = "hora";
+            // 
             // Inicio
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(1079, 722);
+            this.Controls.Add(this.LHora);
+            this.Controls.Add(this.LFecha);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.BUsuario);
             this.Controls.Add(this.label2);
@@ -408,6 +436,8 @@
         private FontAwesome.Sharp.IconMenuItem menuclientes;
         private FontAwesome.Sharp.IconMenuItem submenureportecompras;
         private FontAwesome.Sharp.IconMenuItem submenureporteventas;
+        private System.Windows.Forms.Label LFecha;
+        private System.Windows.Forms.Label LHora;
     }
 }
 

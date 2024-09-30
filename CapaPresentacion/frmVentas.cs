@@ -92,5 +92,6 @@ namespace CapaPresentacion
             // Simulación de venta exitosa
             MessageBox.Show("Venta creada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
     }
 }
