@@ -194,7 +194,7 @@
             // 
             // btnbuscarcliente
             // 
-            this.btnbuscarcliente.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscarcliente.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscarcliente.IconColor = System.Drawing.Color.Black;
             this.btnbuscarcliente.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscarcliente.IconSize = 18;
@@ -257,7 +257,7 @@
             // 
             // btnbuscarproducto
             // 
-            this.btnbuscarproducto.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscarproducto.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscarproducto.IconColor = System.Drawing.Color.Black;
             this.btnbuscarproducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscarproducto.IconSize = 18;
@@ -543,6 +543,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
             this.ClientSize = new System.Drawing.Size(1134, 522);
             this.Controls.Add(this.btncrearventa);
             this.Controls.Add(this.label16);

@@ -138,5 +138,10 @@ namespace CapaPresentacion
         {
 
         }
+
+        private void menuclientes_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuclientes, new frmClientes());
+        }
     }
 }
