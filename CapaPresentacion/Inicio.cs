@@ -1,5 +1,6 @@
 ﻿using CapaEntidad;
 using CapaNegocio;
+using CapaPresentacion.Modal;
 using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
@@ -134,7 +135,8 @@ namespace CapaPresentacion
 
         private void menuacercade_Click(object sender, EventArgs e)
         {
-
+            mdAcercade md = new mdAcercade();
+            md.ShowDialog();
         }
 
         private void submenureportecompras_Click(object sender, EventArgs e)
@@ -146,5 +148,17 @@ namespace CapaPresentacion
         {
             AbrirFormulario(menureportes, new frmReporteVentas());
         }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Está seguro de que desea cerrar sesión y salir del sistema?",
+                                "Confirmar cierre de sesión",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
     }
 }

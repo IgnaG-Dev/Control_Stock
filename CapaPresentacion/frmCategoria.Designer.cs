@@ -63,7 +63,7 @@
             this.btnbuscar.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnbuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnbuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnbuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscar.IconColor = System.Drawing.Color.Black;
             this.btnbuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscar.IconSize = 16;
@@ -271,7 +271,7 @@
             this.btnguardar.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnguardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnguardar.ForeColor = System.Drawing.Color.White;
-            this.btnguardar.IconChar = FontAwesome.Sharp.IconChar.Save;
+            this.btnguardar.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
             this.btnguardar.IconColor = System.Drawing.Color.White;
             this.btnguardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnguardar.IconSize = 16;
