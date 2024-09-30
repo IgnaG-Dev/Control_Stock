@@ -194,7 +194,7 @@
             // 
             // btnbuscarcliente
             // 
-            this.btnbuscarcliente.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscarcliente.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscarcliente.IconColor = System.Drawing.Color.Black;
             this.btnbuscarcliente.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscarcliente.IconSize = 18;
@@ -204,6 +204,7 @@
             this.btnbuscarcliente.Size = new System.Drawing.Size(37, 23);
             this.btnbuscarcliente.TabIndex = 87;
             this.btnbuscarcliente.UseVisualStyleBackColor = true;
+            this.btnbuscarcliente.Click += new System.EventHandler(this.btnbuscarcliente_Click);
             // 
             // txtnombrecliente
             // 
@@ -256,7 +257,7 @@
             // 
             // btnbuscarproducto
             // 
-            this.btnbuscarproducto.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscarproducto.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscarproducto.IconColor = System.Drawing.Color.Black;
             this.btnbuscarproducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscarproducto.IconSize = 18;
@@ -266,6 +267,7 @@
             this.btnbuscarproducto.Size = new System.Drawing.Size(37, 23);
             this.btnbuscarproducto.TabIndex = 2;
             this.btnbuscarproducto.UseVisualStyleBackColor = true;
+            this.btnbuscarproducto.Click += new System.EventHandler(this.btnbuscarproducto_Click);
             // 
             // txtcodproducto
             // 
@@ -379,6 +381,7 @@
             this.btnagregarproducto.Text = "Agregar";
             this.btnagregarproducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnagregarproducto.UseVisualStyleBackColor = true;
+            this.btnagregarproducto.Click += new System.EventHandler(this.btnagregarproducto_Click);
             // 
             // dgvdata
             // 
@@ -534,11 +537,13 @@
             this.btncrearventa.Text = "Crear Venta";
             this.btncrearventa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btncrearventa.UseVisualStyleBackColor = true;
+            this.btncrearventa.Click += new System.EventHandler(this.btncrearventa_Click);
             // 
             // frmVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
             this.ClientSize = new System.Drawing.Size(1134, 522);
             this.Controls.Add(this.btncrearventa);
             this.Controls.Add(this.label16);

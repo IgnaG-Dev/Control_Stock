@@ -121,6 +121,7 @@
             this.txtfecha.ReadOnly = true;
             this.txtfecha.Size = new System.Drawing.Size(119, 21);
             this.txtfecha.TabIndex = 90;
+            this.txtfecha.TextChanged += new System.EventHandler(this.txtfecha_TextChanged);
             // 
             // label3
             // 
@@ -143,6 +144,7 @@
             this.cbotipodocumento.Name = "cbotipodocumento";
             this.cbotipodocumento.Size = new System.Drawing.Size(188, 23);
             this.cbotipodocumento.TabIndex = 93;
+            this.cbotipodocumento.SelectedIndexChanged += new System.EventHandler(this.cbotipodocumento_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -199,10 +201,11 @@
             this.txtdocproveedor.ReadOnly = true;
             this.txtdocproveedor.Size = new System.Drawing.Size(134, 21);
             this.txtdocproveedor.TabIndex = 85;
+            this.txtdocproveedor.TextChanged += new System.EventHandler(this.txtdocproveedor_TextChanged);
             // 
             // btnbuscarproveedor
             // 
-            this.btnbuscarproveedor.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscarproveedor.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscarproveedor.IconColor = System.Drawing.Color.Black;
             this.btnbuscarproveedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscarproveedor.IconSize = 18;
@@ -221,6 +224,7 @@
             this.txtnombreproveedor.ReadOnly = true;
             this.txtnombreproveedor.Size = new System.Drawing.Size(201, 21);
             this.txtnombreproveedor.TabIndex = 86;
+            this.txtnombreproveedor.TextChanged += new System.EventHandler(this.txtnombreproveedor_TextChanged);
             // 
             // label15
             // 
@@ -265,7 +269,7 @@
             // 
             // btnbuscarproducto
             // 
-            this.btnbuscarproducto.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscarproducto.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscarproducto.IconColor = System.Drawing.Color.Black;
             this.btnbuscarproducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscarproducto.IconSize = 18;
@@ -282,6 +286,7 @@
             this.txtcodproducto.Name = "txtcodproducto";
             this.txtcodproducto.Size = new System.Drawing.Size(133, 20);
             this.txtcodproducto.TabIndex = 1;
+            this.txtcodproducto.TextChanged += new System.EventHandler(this.txtcodproducto_TextChanged);
             // 
             // label9
             // 
@@ -299,6 +304,7 @@
             this.txtproducto.ReadOnly = true;
             this.txtproducto.Size = new System.Drawing.Size(195, 20);
             this.txtproducto.TabIndex = 3;
+            this.txtproducto.TextChanged += new System.EventHandler(this.txtproducto_TextChanged);
             // 
             // txtcantidad
             // 
@@ -321,6 +327,7 @@
             0,
             0,
             0});
+            this.txtcantidad.ValueChanged += new System.EventHandler(this.txtcantidad_ValueChanged);
             // 
             // label5
             // 
@@ -337,6 +344,7 @@
             this.txtprecioventa.Name = "txtprecioventa";
             this.txtprecioventa.Size = new System.Drawing.Size(78, 20);
             this.txtprecioventa.TabIndex = 5;
+            this.txtprecioventa.TextChanged += new System.EventHandler(this.txtprecioventa_TextChanged);
             // 
             // label8
             // 
@@ -362,6 +370,7 @@
             this.txtpreciocompra.Name = "txtpreciocompra";
             this.txtpreciocompra.Size = new System.Drawing.Size(78, 20);
             this.txtpreciocompra.TabIndex = 4;
+            this.txtpreciocompra.TextChanged += new System.EventHandler(this.txtpreciocompra_TextChanged);
             // 
             // label6
             // 
@@ -394,7 +403,7 @@
             this.Cantidad,
             this.SubTotal,
             this.btneliminar});
-            this.dgvdata.Location = new System.Drawing.Point(184, 241);
+            this.dgvdata.Location = new System.Drawing.Point(175, 241);
             this.dgvdata.MultiSelect = false;
             this.dgvdata.Name = "dgvdata";
             this.dgvdata.ReadOnly = true;
@@ -476,6 +485,7 @@
             this.txttotalpagar.Size = new System.Drawing.Size(95, 21);
             this.txttotalpagar.TabIndex = 202;
             this.txttotalpagar.Text = "0";
+            this.txttotalpagar.TextChanged += new System.EventHandler(this.txttotalpagar_TextChanged);
             // 
             // btnregistrar
             // 
@@ -493,6 +503,7 @@
             this.btnregistrar.Text = "Registrar";
             this.btnregistrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnregistrar.UseVisualStyleBackColor = true;
+            this.btnregistrar.Click += new System.EventHandler(this.btnregistrar_Click);
             // 
             // btnagregarproducto
             // 
@@ -509,11 +520,13 @@
             this.btnagregarproducto.Text = "Agregar";
             this.btnagregarproducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnagregarproducto.UseVisualStyleBackColor = true;
+            this.btnagregarproducto.Click += new System.EventHandler(this.btnagregarproducto_Click);
             // 
             // frmCompras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
             this.ClientSize = new System.Drawing.Size(1124, 514);
             this.Controls.Add(this.btnregistrar);
             this.Controls.Add(this.label1);

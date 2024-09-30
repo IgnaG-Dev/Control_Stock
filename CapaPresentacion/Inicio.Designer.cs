@@ -30,9 +30,10 @@
         {
             this.menu = new System.Windows.Forms.MenuStrip();
             this.menuusuarios = new FontAwesome.Sharp.IconMenuItem();
-            this.menuadministracion = new FontAwesome.Sharp.IconMenuItem();
+            this.menuadministrador = new FontAwesome.Sharp.IconMenuItem();
             this.submenucategoria = new FontAwesome.Sharp.IconMenuItem();
             this.submenuproducto = new FontAwesome.Sharp.IconMenuItem();
+            this.menuclientes = new FontAwesome.Sharp.IconMenuItem();
             this.menuventas = new FontAwesome.Sharp.IconMenuItem();
             this.submenuregistrarventa = new FontAwesome.Sharp.IconMenuItem();
             this.submenuverdetalleventa = new FontAwesome.Sharp.IconMenuItem();
@@ -62,7 +63,8 @@
             this.menu.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuusuarios,
-            this.menuadministracion,
+            this.menuadministrador,
+            this.menuclientes,
             this.menuventas,
             this.menucompras,
             this.menuproveedores,
@@ -91,22 +93,22 @@
             this.menuusuarios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.menuusuarios.Click += new System.EventHandler(this.menuusuarios_Click);
             // 
-            // menuadministracion
+            // menuadministrador
             // 
-            this.menuadministracion.AutoSize = false;
-            this.menuadministracion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuadministrador.AutoSize = false;
+            this.menuadministrador.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.submenucategoria,
             this.submenuproducto});
-            this.menuadministracion.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.menuadministracion.IconChar = FontAwesome.Sharp.IconChar.Cog;
-            this.menuadministracion.IconColor = System.Drawing.Color.Black;
-            this.menuadministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.menuadministracion.IconSize = 50;
-            this.menuadministracion.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.menuadministracion.Name = "menuadministracion";
-            this.menuadministracion.Size = new System.Drawing.Size(140, 80);
-            this.menuadministracion.Text = "Administración";
-            this.menuadministracion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuadministrador.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.menuadministrador.IconChar = FontAwesome.Sharp.IconChar.Cog;
+            this.menuadministrador.IconColor = System.Drawing.Color.Black;
+            this.menuadministrador.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.menuadministrador.IconSize = 50;
+            this.menuadministrador.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuadministrador.Name = "menuadministrador";
+            this.menuadministrador.Size = new System.Drawing.Size(140, 80);
+            this.menuadministrador.Text = "Administración";
+            this.menuadministrador.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // submenucategoria
             // 
@@ -127,6 +129,21 @@
             this.submenuproducto.Size = new System.Drawing.Size(129, 22);
             this.submenuproducto.Text = "Productos";
             this.submenuproducto.Click += new System.EventHandler(this.submenuproducto_Click);
+            // 
+            // menuclientes
+            // 
+            this.menuclientes.AutoSize = false;
+            this.menuclientes.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.menuclientes.IconChar = FontAwesome.Sharp.IconChar.UserAlt;
+            this.menuclientes.IconColor = System.Drawing.Color.Black;
+            this.menuclientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.menuclientes.IconSize = 50;
+            this.menuclientes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuclientes.Name = "menuclientes";
+            this.menuclientes.Size = new System.Drawing.Size(122, 80);
+            this.menuclientes.Text = "Clientes";
+            this.menuclientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuclientes.Click += new System.EventHandler(this.menuclientes_Click);
             // 
             // menuventas
             // 
@@ -266,7 +283,7 @@
             // menuTitulo
             // 
             this.menuTitulo.AutoSize = false;
-            this.menuTitulo.BackColor = System.Drawing.Color.SteelBlue;
+            this.menuTitulo.BackColor = System.Drawing.Color.DarkBlue;
             this.menuTitulo.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuTitulo.Location = new System.Drawing.Point(0, 0);
             this.menuTitulo.Name = "menuTitulo";
@@ -279,9 +296,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.SteelBlue;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.BackColor = System.Drawing.Color.DarkBlue;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(32, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(295, 39);
@@ -303,7 +320,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.SteelBlue;
+            this.label2.BackColor = System.Drawing.Color.DarkBlue;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(718, 41);
@@ -315,7 +332,7 @@
             // BUsuario
             // 
             this.BUsuario.AutoSize = true;
-            this.BUsuario.BackColor = System.Drawing.Color.SteelBlue;
+            this.BUsuario.BackColor = System.Drawing.Color.DarkBlue;
             this.BUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BUsuario.ForeColor = System.Drawing.Color.White;
             this.BUsuario.Location = new System.Drawing.Point(796, 41);
@@ -383,7 +400,7 @@
         private System.Windows.Forms.MenuStrip menu;
         private System.Windows.Forms.MenuStrip menuTitulo;
         private System.Windows.Forms.Label label1;
-        private FontAwesome.Sharp.IconMenuItem menuadministracion;
+        private FontAwesome.Sharp.IconMenuItem menuadministrador;
         private FontAwesome.Sharp.IconMenuItem menuventas;
         private FontAwesome.Sharp.IconMenuItem menucompras;
         private FontAwesome.Sharp.IconMenuItem menuacercade;
@@ -403,6 +420,7 @@
         private System.Windows.Forms.ToolStripMenuItem submenureporteventas;
         private FontAwesome.Sharp.IconButton btnSalir;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private FontAwesome.Sharp.IconMenuItem menuclientes;
     }
 }
 

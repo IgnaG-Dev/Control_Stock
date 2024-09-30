@@ -237,7 +237,7 @@ namespace CapaPresentacion
 
                     if (respuesta) 
                     {
-                        dgvdata.Rows.RemoveAt(Convert.ToInt32(TBId.Text));  
+                        dgvdata.Rows.RemoveAt(Convert.ToInt32(TBIndice.Text));  
                     }
                     else
                     {
