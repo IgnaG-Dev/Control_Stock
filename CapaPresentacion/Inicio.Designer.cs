@@ -248,7 +248,7 @@
             // menuTitulo
             // 
             this.menuTitulo.AutoSize = false;
-            this.menuTitulo.BackColor = System.Drawing.Color.DarkBlue;
+            this.menuTitulo.BackColor = System.Drawing.Color.SteelBlue;
             this.menuTitulo.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuTitulo.Location = new System.Drawing.Point(0, 0);
             this.menuTitulo.Name = "menuTitulo";
@@ -261,7 +261,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.DarkBlue;
+            this.label1.BackColor = System.Drawing.Color.SteelBlue;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(32, 25);
@@ -284,9 +284,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.DarkBlue;
+            this.label2.BackColor = System.Drawing.Color.SteelBlue;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(718, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 20);
@@ -296,9 +296,9 @@
             // BUsuario
             // 
             this.BUsuario.AutoSize = true;
-            this.BUsuario.BackColor = System.Drawing.Color.DarkBlue;
+            this.BUsuario.BackColor = System.Drawing.Color.SteelBlue;
             this.BUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BUsuario.ForeColor = System.Drawing.Color.White;
+            this.BUsuario.ForeColor = System.Drawing.Color.Black;
             this.BUsuario.Location = new System.Drawing.Point(796, 41);
             this.BUsuario.Name = "BUsuario";
             this.BUsuario.Size = new System.Drawing.Size(75, 20);
