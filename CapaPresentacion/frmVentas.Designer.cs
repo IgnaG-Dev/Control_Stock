@@ -204,6 +204,7 @@
             this.btnbuscarcliente.Size = new System.Drawing.Size(37, 23);
             this.btnbuscarcliente.TabIndex = 87;
             this.btnbuscarcliente.UseVisualStyleBackColor = true;
+            this.btnbuscarcliente.Click += new System.EventHandler(this.btnbuscarcliente_Click);
             // 
             // txtnombrecliente
             // 
@@ -266,6 +267,7 @@
             this.btnbuscarproducto.Size = new System.Drawing.Size(37, 23);
             this.btnbuscarproducto.TabIndex = 2;
             this.btnbuscarproducto.UseVisualStyleBackColor = true;
+            this.btnbuscarproducto.Click += new System.EventHandler(this.btnbuscarproducto_Click);
             // 
             // txtcodproducto
             // 
@@ -379,6 +381,7 @@
             this.btnagregarproducto.Text = "Agregar";
             this.btnagregarproducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnagregarproducto.UseVisualStyleBackColor = true;
+            this.btnagregarproducto.Click += new System.EventHandler(this.btnagregarproducto_Click);
             // 
             // dgvdata
             // 
@@ -534,6 +537,7 @@
             this.btncrearventa.Text = "Crear Venta";
             this.btncrearventa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btncrearventa.UseVisualStyleBackColor = true;
+            this.btncrearventa.Click += new System.EventHandler(this.btncrearventa_Click);
             // 
             // frmVentas
             // 

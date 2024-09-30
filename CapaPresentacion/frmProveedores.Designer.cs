@@ -67,6 +67,12 @@
             // 
             // btnbuscar
             // 
+            // Enlazar eventos a los botones
+            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
+            this.btnlimpiar.Click += new System.EventHandler(this.btnlimpiar_Click);
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
+            this.btnlimpiarbuscador.Click += new System.EventHandler(this.btnlimpiarbuscador_Click);
+
             this.btnbuscar.BackColor = System.Drawing.Color.White;
             this.btnbuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnbuscar.FlatAppearance.BorderColor = System.Drawing.Color.Black;

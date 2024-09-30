@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ///
+            
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label10 = new System.Windows.Forms.Label();
@@ -389,7 +391,15 @@
             this.label1.Size = new System.Drawing.Size(91, 15);
             this.label1.TabIndex = 214;
             this.label1.Text = "Monto Cambio:";
+
+            // Enlazar eventos a los botones
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
+            this.btnborrar.Click += new System.EventHandler(this.btnborrar_Click);
+            this.btndescargar.Click += new System.EventHandler(this.btndescargar_Click);
+
+
             // 
+
             // txtmontototal
             // 
             this.txtmontototal.BackColor = System.Drawing.Color.WhiteSmoke;

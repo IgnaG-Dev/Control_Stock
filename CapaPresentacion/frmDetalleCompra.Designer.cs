@@ -355,6 +355,9 @@
             // 
             // btndescargar
             // 
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
+            this.btnborrar.Click += new System.EventHandler(this.btnborrar_Click);
+            this.btndescargar.Click += new System.EventHandler(this.btndescargar_Click);
             this.btndescargar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btndescargar.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
             this.btndescargar.IconColor = System.Drawing.Color.Black;

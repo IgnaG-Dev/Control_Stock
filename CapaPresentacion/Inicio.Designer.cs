@@ -30,7 +30,7 @@
         {
             this.menu = new System.Windows.Forms.MenuStrip();
             this.menuusuarios = new FontAwesome.Sharp.IconMenuItem();
-            this.menuadministracion = new FontAwesome.Sharp.IconMenuItem();
+            this.menuadministrador = new FontAwesome.Sharp.IconMenuItem();
             this.submenucategoria = new FontAwesome.Sharp.IconMenuItem();
             this.submenuproducto = new FontAwesome.Sharp.IconMenuItem();
             this.menuventas = new FontAwesome.Sharp.IconMenuItem();
@@ -56,7 +56,7 @@
             this.menu.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuusuarios,
-            this.menuadministracion,
+            this.menuadministrador,
             this.menuventas,
             this.menucompras,
             this.menuproveedores,
@@ -85,22 +85,22 @@
             this.menuusuarios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.menuusuarios.Click += new System.EventHandler(this.menuusuarios_Click);
             // 
-            // menuadministracion
+            // menuadministrador
             // 
-            this.menuadministracion.AutoSize = false;
-            this.menuadministracion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuadministrador.AutoSize = false;
+            this.menuadministrador.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.submenucategoria,
             this.submenuproducto});
-            this.menuadministracion.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.menuadministracion.IconChar = FontAwesome.Sharp.IconChar.Cog;
-            this.menuadministracion.IconColor = System.Drawing.Color.Black;
-            this.menuadministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.menuadministracion.IconSize = 50;
-            this.menuadministracion.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.menuadministracion.Name = "menuadministracion";
-            this.menuadministracion.Size = new System.Drawing.Size(140, 80);
-            this.menuadministracion.Text = "Administración";
-            this.menuadministracion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuadministrador.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.menuadministrador.IconChar = FontAwesome.Sharp.IconChar.Cog;
+            this.menuadministrador.IconColor = System.Drawing.Color.Black;
+            this.menuadministrador.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.menuadministrador.IconSize = 50;
+            this.menuadministrador.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuadministrador.Name = "menuadministrador";
+            this.menuadministrador.Size = new System.Drawing.Size(140, 80);
+            this.menuadministrador.Text = "Administración";
+            this.menuadministrador.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // submenucategoria
             // 
@@ -108,7 +108,7 @@
             this.submenucategoria.IconColor = System.Drawing.Color.Black;
             this.submenucategoria.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenucategoria.Name = "submenucategoria";
-            this.submenucategoria.Size = new System.Drawing.Size(129, 22);
+            this.submenucategoria.Size = new System.Drawing.Size(188, 30);
             this.submenucategoria.Text = "Categorias";
             this.submenucategoria.Click += new System.EventHandler(this.submenucategoria_Click);
             // 
@@ -118,7 +118,7 @@
             this.submenuproducto.IconColor = System.Drawing.Color.Black;
             this.submenuproducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenuproducto.Name = "submenuproducto";
-            this.submenuproducto.Size = new System.Drawing.Size(129, 22);
+            this.submenuproducto.Size = new System.Drawing.Size(188, 30);
             this.submenuproducto.Text = "Productos";
             this.submenuproducto.Click += new System.EventHandler(this.submenuproducto_Click);
             // 
@@ -330,7 +330,7 @@
         private System.Windows.Forms.MenuStrip menu;
         private System.Windows.Forms.MenuStrip menuTitulo;
         private System.Windows.Forms.Label label1;
-        private FontAwesome.Sharp.IconMenuItem menuadministracion;
+        private FontAwesome.Sharp.IconMenuItem menuadministrador;
         private FontAwesome.Sharp.IconMenuItem menuventas;
         private FontAwesome.Sharp.IconMenuItem menucompras;
         private FontAwesome.Sharp.IconMenuItem menuacercade;

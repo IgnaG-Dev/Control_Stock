@@ -81,12 +81,12 @@ namespace CapaPresentacion
 
         private void submenucategoria_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuadministracion, new frmCategoria());
+            AbrirFormulario(menuadministrador, new frmCategoria());
         }
 
         private void submenuproducto_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuadministracion, new frmProducto());
+            AbrirFormulario(menuadministrador, new frmProducto());
         }
 
         private void submenuregistrarventa_Click(object sender, EventArgs e)
