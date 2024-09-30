@@ -20,39 +20,6 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void BIngresar_Click(object sender, EventArgs e)
-        {
-            List<Usuario> TEST = new CN_Usuario().listar();
-
-            Usuario oUsuario = new CN_Usuario().listar().Where(u => u.Documento == TBDni.Text && u.Clave == TBClave.Text).FirstOrDefault();
-
-            if(oUsuario != null)
-            {
-                Inicio form = new Inicio(oUsuario);
-
-                form.Show();
-                this.Hide();
-
-                form.FormClosing += frm_closing;
-            }else
-            {
-                MessageBox.Show("No se encontro el usuario", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            
-
-        }
-
         private void frm_closing(object sender, FormClosingEventArgs e)
         {
             TBDni.Text = "";
@@ -61,9 +28,33 @@ namespace CapaPresentacion
             this.Show();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void BIngresar_Click(object sender, EventArgs e)
         {
+            List<Usuario> TEST = new CN_Usuario().listar();
 
+            Usuario oUsuario = new CN_Usuario().listar().Where(u => u.Documento == TBDni.Text && u.Clave == TBClave.Text).FirstOrDefault();
+
+            if (oUsuario != null)
+            {
+                Inicio form = new Inicio(oUsuario);
+
+                form.Show();
+                this.Hide();
+
+                form.FormClosing += frm_closing;
+            }
+            else
+            {
+                MessageBox.Show("No se encontro el usuario", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
+
+        private void BSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        
     }
 }

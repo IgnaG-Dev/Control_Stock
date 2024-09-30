@@ -50,7 +50,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.BUsuario = new System.Windows.Forms.Label();
             this.btnSalir = new FontAwesome.Sharp.IconButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menu.SuspendLayout();
+            this.contenedor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menu
@@ -234,14 +237,14 @@
             // submenureportecompras
             // 
             this.submenureportecompras.Name = "submenureportecompras";
-            this.submenureportecompras.Size = new System.Drawing.Size(172, 22);
+            this.submenureportecompras.Size = new System.Drawing.Size(180, 22);
             this.submenureportecompras.Text = "Reporte de compra";
             this.submenureportecompras.Click += new System.EventHandler(this.submenureportecompras_Click);
             // 
             // submenureporteventas
             // 
             this.submenureporteventas.Name = "submenureporteventas";
-            this.submenureporteventas.Size = new System.Drawing.Size(172, 22);
+            this.submenureporteventas.Size = new System.Drawing.Size(180, 22);
             this.submenureporteventas.Text = "Reporte de venta";
             this.submenureporteventas.Click += new System.EventHandler(this.submenureporteventas_Click);
             // 
@@ -277,19 +280,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.SteelBlue;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(32, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 36);
+            this.label1.Size = new System.Drawing.Size(295, 39);
             this.label1.TabIndex = 2;
-            this.label1.Text = "PlastiCorp";
+            this.label1.Text = "Sistema de venta";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // contenedor
             // 
             this.contenedor.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.contenedor.Controls.Add(this.pictureBox1);
             this.contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contenedor.Location = new System.Drawing.Point(0, 164);
             this.contenedor.Name = "contenedor";
@@ -301,7 +305,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.SteelBlue;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(718, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 20);
@@ -313,7 +317,7 @@
             this.BUsuario.AutoSize = true;
             this.BUsuario.BackColor = System.Drawing.Color.SteelBlue;
             this.BUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BUsuario.ForeColor = System.Drawing.Color.Black;
+            this.BUsuario.ForeColor = System.Drawing.Color.White;
             this.BUsuario.Location = new System.Drawing.Point(796, 41);
             this.BUsuario.Name = "BUsuario";
             this.BUsuario.Size = new System.Drawing.Size(75, 20);
@@ -329,12 +333,23 @@
             this.btnSalir.IconColor = System.Drawing.Color.White;
             this.btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnSalir.IconSize = 40;
-            this.btnSalir.Location = new System.Drawing.Point(1014, 12);
+            this.btnSalir.Location = new System.Drawing.Point(1014, 25);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(53, 49);
             this.btnSalir.TabIndex = 6;
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Image = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
+            this.pictureBox1.Location = new System.Drawing.Point(454, 170);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(246, 203);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // Inicio
             // 
@@ -356,6 +371,8 @@
             this.Load += new System.EventHandler(this.Inicio_Load);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
+            this.contenedor.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,6 +402,7 @@
         private System.Windows.Forms.ToolStripMenuItem submenureportecompras;
         private System.Windows.Forms.ToolStripMenuItem submenureporteventas;
         private FontAwesome.Sharp.IconButton btnSalir;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
