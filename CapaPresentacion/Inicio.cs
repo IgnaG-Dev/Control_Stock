@@ -115,38 +115,10 @@ namespace CapaPresentacion
             AbrirFormulario((IconMenuItem)sender, new frmProveedores());
         }
 
-
-
-
-        private void menuTitulo_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void menu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
         private void menuacercade_Click(object sender, EventArgs e)
         {
             mdAcercade md = new mdAcercade();
             md.ShowDialog();
-        }
-
-        private void submenureportecompras_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario(menureportes, new frmReporteCompras());
-        }
-
-        private void submenureporteventas_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario(menureportes, new frmReporteVentas());
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -164,5 +136,17 @@ namespace CapaPresentacion
         {
             AbrirFormulario(menuclientes, new frmClientes());
         }
+
+
+        private void submenureportecompras_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menureportes, new frmReporteCompras());
+        }
+
+        private void submenureporteventas_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menureportes, new frmReporteVentas());
+        }
+
     }
 }
