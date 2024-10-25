@@ -120,12 +120,13 @@
             this.BIngresar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BIngresar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BIngresar.UseVisualStyleBackColor = false;
-            this.BIngresar.Click += new System.EventHandler(this.BIngresar_Click);
+            this.BIngresar.Click += new System.EventHandler(this.btningresar_Click);
             // 
             // BSalir
             // 
             this.BSalir.BackColor = System.Drawing.Color.Firebrick;
             this.BSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BSalir.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.BSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BSalir.ForeColor = System.Drawing.Color.White;
@@ -141,7 +142,7 @@
             this.BSalir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BSalir.UseVisualStyleBackColor = false;
-            this.BSalir.Click += new System.EventHandler(this.BSalir_Click);
+            this.BSalir.Click += new System.EventHandler(this.btncancelar_Click);
             // 
             // label5
             // 

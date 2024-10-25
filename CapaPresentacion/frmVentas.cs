@@ -3,22 +3,26 @@ using CapaNegocio;
 using CapaPresentacion.Modal;
 using CapaPresentacion.Utilidades;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
     public partial class frmVentas : Form
     {
+
         private Usuario _Usuario;
         public frmVentas(Usuario oUsuario = null)
         {
             _Usuario = oUsuario;
             InitializeComponent();
         }
-
 
         private void frmVentas_Load(object sender, EventArgs e)
         {
@@ -166,7 +170,9 @@ namespace CapaPresentacion
             }
 
 
+
         }
+
         private void calcularTotal()
         {
             decimal total = 0;
@@ -314,6 +320,9 @@ namespace CapaPresentacion
 
                 }
             }
+
+
+
         }
 
         private void txtpagocon_KeyDown(object sender, KeyEventArgs e)
@@ -324,13 +333,95 @@ namespace CapaPresentacion
             }
         }
 
+        private void btncrearventa_Click(object sender, EventArgs e)
+        {
+
+            if (txtdocumentocliente.Text == "")
+            {
+                MessageBox.Show("Debe ingresar documento del cliente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+
+            if (txtnombrecliente.Text == "")
+            {
+                MessageBox.Show("Debe ingresar nombre del cliente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            if (dgvdata.Rows.Count < 1)
+            {
+                MessageBox.Show("Debe ingresar productos en la venta", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+
+
+            DataTable detalle_venta = new DataTable();
+
+            detalle_venta.Columns.Add("IdProducto", typeof(int));
+            detalle_venta.Columns.Add("PrecioVenta", typeof(decimal));
+            detalle_venta.Columns.Add("Cantidad", typeof(int));
+            detalle_venta.Columns.Add("SubTotal", typeof(decimal));
+
+
+            foreach (DataGridViewRow row in dgvdata.Rows)
+            {
+                detalle_venta.Rows.Add(new object[] {
+                    row.Cells["IdProducto"].Value.ToString(),
+                    row.Cells["Precio"].Value.ToString(),
+                    row.Cells["Cantidad"].Value.ToString(),
+                    row.Cells["SubTotal"].Value.ToString()
+                });
+            }
+
+
+            int idcorrelativo = new CN_Venta().ObtenerCorrelativo();
+            string numeroDocumento = string.Format("{0:00000}", idcorrelativo);
+            calcularcambio();
+
+            Venta oVenta = new Venta()
+            {
+
+                oUsuario = new Usuario() { IdUsuario = _Usuario.IdUsuario },
+                TipoDocumento = ((OpcionCombo)cbotipodocumento.SelectedItem).Texto,
+                NumeroDocumento = numeroDocumento,
+                DocumentoCliente = txtdocumentocliente.Text,
+                NombreCliente = txtnombrecliente.Text,
+                MontoPago = Convert.ToDecimal(txtpagocon.Text),
+                MontoCambio = Convert.ToDecimal(txtcambio.Text),
+                MontoTotal = Convert.ToDecimal(txttotalpagar.Text)
+            };
+
+
+            string mensaje = string.Empty;
+            bool respuesta = new CN_Venta().Registrar(oVenta, detalle_venta, out mensaje);
+
+            if (respuesta)
+            {
+                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento + "\n\n¿Desea copiar al portapapeles?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (result == DialogResult.Yes)
+                    Clipboard.SetText(numeroDocumento);
+
+                txtdocumentocliente.Text = "";
+                txtnombrecliente.Text = "";
+                dgvdata.Rows.Clear();
+                calcularTotal();
+                txtpagocon.Text = "";
+                txtcambio.Text = "";
+            }
+            else
+                MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+
+
+        }
+
         private void frmVentas_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F10)
-            {
-                btnagregarproducto.PerformClick(); 
-                e.Handled = true; 
-            }
+
         }
+
     }
 }

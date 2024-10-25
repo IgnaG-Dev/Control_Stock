@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div style="width: 80%; margin: auto; background-color: #fff; padding: 30px; border-radius: 8px; 
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); font-family: 'Arial', sans-serif; color: #333;">
+        <h1 style="text-align: center; font-size: 28px; color: #1E88E5; margin-bottom: 10px;">@nombrenegocio</h1>
+        <p><strong>RUC:</strong> @docnegocio</p>
+        <p><strong>Dirección:</strong> @direcnegocio</p>
+        <hr style="border: 0; height: 1px; background-color: #ddd; margin: 20px 0;" />
+
+        <div style="margin-top: 20px;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px;"><strong>Documento Proveedor:</strong> @docproveedor</td>
+                    <td style="padding: 8px;"><strong>Nombre Proveedor:</strong> @nombreproveedor</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;"><strong>Fecha Registro:</strong> @fecharegistro</td>
+                    <td style="padding: 8px;"><strong>Usuario Registro:</strong> @usuarioregistro</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h2 style="font-size: 22px; color: #1E88E5;">Productos Comprados</h2>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                <thead>
+                    <tr style="background-color: #1E88E5; color: white;">
+                        <th style="border: 1px solid #ccc; padding: 12px;">Producto</th>
+                        <th style="border: 1px solid #ccc; padding: 12px;">Precio Compra</th>
+                        <th style="border: 1px solid #ccc; padding: 12px;">Cantidad</th>
+                        <th style="border: 1px solid #ccc; padding: 12px;">Sub Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @filas
+                </tbody>
+            </table>
+
+            <table style="width: 30%; float: right; border-collapse: collapse; font-size: 14px; margin-top: 10px;">
+                <thead>
+                    <tr style="background-color: #333; color: white;">
+                        <th style="border: 1px solid #ccc; padding: 12px;">Monto Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 12px;">@montototal</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
