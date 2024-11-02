@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CapaEntidad;
+using CapaNegocio;
+using CapaPresentacion.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,104 +20,213 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
-        // Validación antes de guardar
+        private void frmCategoria_Load(object sender, EventArgs e)
+        {
+            cboestado.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
+            cboestado.Items.Add(new OpcionCombo() { Valor = 0, Texto = "No Activo" });
+            cboestado.DisplayMember = "Texto";
+            cboestado.ValueMember = "Valor";
+            cboestado.SelectedIndex = 0;
+
+
+            foreach (DataGridViewColumn columna in dgvdata.Columns)
+            {
+
+                if (columna.Visible == true && columna.Name != "btnseleccionar")
+                {
+                    cbobusqueda.Items.Add(new OpcionCombo() { Valor = columna.Name, Texto = columna.HeaderText });
+                }
+            }
+            cbobusqueda.DisplayMember = "Texto";
+            cbobusqueda.ValueMember = "Valor";
+            cbobusqueda.SelectedIndex = 0;
+
+
+
+            //MOSTRAR TODOS LOS USUARIOS
+            List<Categoria> lista = new CN_Categoria().Listar();
+
+            foreach (Categoria item in lista)
+            {
+
+                dgvdata.Rows.Add(new object[] {"",item.IdCategoria,
+                    item.Descripcion,
+                    item.Estado == true ? 1 : 0 ,
+                    item.Estado == true ? "Activo" : "No Activo"
+                });
+            }
+        }
+
         private void btnguardar_Click(object sender, EventArgs e)
         {
-            if (ValidarFormulario())
-            {
-                // Aquí puedes agregar la lógica de guardado, por ahora solo muestra mensaje de éxito
-                MessageBox.Show("Categoría guardada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
 
-        // Validación antes de limpiar el formulario
-        private void btnlimpiar_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("¿Estás seguro de que deseas limpiar el formulario?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                LimpiarFormulario();
-            }
-        }
+            string mensaje = string.Empty;
 
-        // Validación antes de eliminar
-        private void btneliminar_Click(object sender, EventArgs e)
-        {
-            if (txtid.Text != "0")
+            Categoria obj = new Categoria()
             {
-                if (MessageBox.Show("¿Estás seguro de que deseas eliminar esta categoría?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                IdCategoria = Convert.ToInt32(txtid.Text),
+                Descripcion = txtdescripcion.Text,
+                Estado = Convert.ToInt32(((OpcionCombo)cboestado.SelectedItem).Valor) == 1 ? true : false
+            };
+
+            if (obj.IdCategoria == 0)
+            {
+                int idgenerado = new CN_Categoria().Registrar(obj, out mensaje);
+
+                if (idgenerado != 0)
                 {
-                    // Aquí puedes agregar la lógica para eliminar la categoría
-                    MessageBox.Show("Categoría eliminada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    dgvdata.Rows.Add(new object[] {"",idgenerado,txtdescripcion.Text,
+                        ((OpcionCombo)cboestado.SelectedItem).Valor.ToString(),
+                        ((OpcionCombo)cboestado.SelectedItem).Texto.ToString()
+                    });
+
+                    Limpiar();
                 }
+                else
+                {
+                    MessageBox.Show(mensaje);
+                }
+
+
             }
             else
             {
-                MessageBox.Show("No se ha seleccionado ninguna categoría para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                bool resultado = new CN_Categoria().Editar(obj, out mensaje);
+
+                if (resultado)
+                {
+                    DataGridViewRow row = dgvdata.Rows[Convert.ToInt32(txtindice.Text)];
+                    row.Cells["Id"].Value = txtid.Text;
+                    row.Cells["Descripcion"].Value = txtdescripcion.Text;
+                    row.Cells["EstadoValor"].Value = ((OpcionCombo)cboestado.SelectedItem).Valor.ToString();
+                    row.Cells["Estado"].Value = ((OpcionCombo)cboestado.SelectedItem).Texto.ToString();
+                    Limpiar();
+                }
+                else
+                {
+                    MessageBox.Show(mensaje);
+                }
             }
+
+
         }
 
-        // Método para validar los campos del formulario
-        private bool ValidarFormulario()
+
+        private void Limpiar()
         {
-            StringBuilder sbErrores = new StringBuilder();
 
-            if (string.IsNullOrWhiteSpace(txtdescripcion.Text))
-            {
-                sbErrores.AppendLine("La descripción es un campo obligatorio.");
-            }
-
-            if (cboestado.SelectedIndex == -1)
-            {
-                sbErrores.AppendLine("Debes seleccionar un estado.");
-            }
-
-            if (sbErrores.Length > 0)
-            {
-                MessageBox.Show(sbErrores.ToString(), "Errores de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            return true;
-        }
-
-        // Método para limpiar los controles del formulario
-        private void LimpiarFormulario()
-        {
+            txtindice.Text = "-1";
+            txtid.Text = "0";
             txtdescripcion.Text = "";
-            cboestado.SelectedIndex = -1;  // Reiniciar el estado
-            txtid.Text = "0";  // Reiniciar el ID
-            txtindice.Text = "-1";  // Reiniciar el índice
+            cboestado.SelectedIndex = 0;
+
+            txtdescripcion.Select();
         }
 
-        private void txtdescripcion_TextChanged(object sender, EventArgs e)
+        private void dgvdata_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            // Aquí puedes agregar validaciones adicionales si lo deseas
+            if (e.RowIndex < 0)
+                return;
+
+            if (e.ColumnIndex == 0)
+            {
+
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                var w = Properties.Resources.icons8_comprobado_48.Width;
+                var h = Properties.Resources.icons8_comprobado_48.Height;
+                var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
+                var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
+
+                e.Graphics.DrawImage(Properties.Resources.icons8_comprobado_48, new Rectangle(x, y, w, h));
+                e.Handled = true;
+            }
         }
 
-        private void cboestado_SelectedIndexChanged(object sender, EventArgs e)
+        private void dgvdata_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Aquí puedes agregar alguna lógica si cambia el estado seleccionado
+            if (dgvdata.Columns[e.ColumnIndex].Name == "btnseleccionar")
+            {
+
+                int indice = e.RowIndex;
+
+                if (indice >= 0)
+                {
+                    txtindice.Text = indice.ToString();
+                    txtid.Text = dgvdata.Rows[indice].Cells["Id"].Value.ToString();
+                    txtdescripcion.Text = dgvdata.Rows[indice].Cells["Descripcion"].Value.ToString();
+                    foreach (OpcionCombo oc in cboestado.Items)
+                    {
+                        if (Convert.ToInt32(oc.Valor) == Convert.ToInt32(dgvdata.Rows[indice].Cells["EstadoValor"].Value))
+                        {
+                            int indice_combo = cboestado.Items.IndexOf(oc);
+                            cboestado.SelectedIndex = indice_combo;
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
-        private void cbobusqueda_SelectedIndexChanged(object sender, EventArgs e)
+        private void btneliminar_Click(object sender, EventArgs e)
         {
-            // Lógica si es necesario manejar la búsqueda por campos
-        }
+            if (Convert.ToInt32(txtid.Text) != 0)
+            {
+                if (MessageBox.Show("¿Desea eliminar la categoria", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
 
-        private void txtbusqueda_TextChanged(object sender, EventArgs e)
-        {
-            // Lógica si es necesario realizar búsqueda en tiempo real
+                    string mensaje = string.Empty;
+                    Categoria obj = new Categoria()
+                    {
+                        IdCategoria = Convert.ToInt32(txtid.Text)
+                    };
+
+                    bool respuesta = new CN_Categoria().Eliminar(obj, out mensaje);
+
+                    if (respuesta)
+                    {
+                        dgvdata.Rows.RemoveAt(Convert.ToInt32(txtindice.Text));
+                        Limpiar();
+                    }
+                    else
+                    {
+                        MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+
+                }
+            }
         }
 
         private void btnbuscar_Click(object sender, EventArgs e)
         {
-            // Lógica de búsqueda si es necesario
+            string columnaFiltro = ((OpcionCombo)cbobusqueda.SelectedItem).Valor.ToString();
+
+            if (dgvdata.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgvdata.Rows)
+                {
+
+                    if (row.Cells[columnaFiltro].Value.ToString().Trim().ToUpper().Contains(txtbusqueda.Text.Trim().ToUpper()))
+                        row.Visible = true;
+                    else
+                        row.Visible = false;
+                }
+            }
         }
 
         private void btnlimpiarbuscador_Click(object sender, EventArgs e)
         {
-            txtbusqueda.Text = "";  // Limpiar el campo de búsqueda
-            cbobusqueda.SelectedIndex = -1;  // Reiniciar el combo box de búsqueda
+            txtbusqueda.Text = "";
+            foreach (DataGridViewRow row in dgvdata.Rows)
+            {
+                row.Visible = true;
+            }
+        }
+
+        private void btnlimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
         }
     }
 }

@@ -46,10 +46,13 @@
     <Compile Include="Compra.cs" />
     <Compile Include="Detalle_Compra.cs" />
     <Compile Include="Detalle_Venta.cs" />
+    <Compile Include="Negocio.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor.cs" />
+    <Compile Include="ReporteCompra.cs" />
+    <Compile Include="ReporteVenta.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Venta.cs" />

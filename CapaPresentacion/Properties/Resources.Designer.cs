@@ -89,5 +89,41 @@ namespace CapaPresentacion.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;body&gt;
+        ///    &lt;div style=&quot;width: 80%; margin: auto; background-color: #fff; padding: 30px; border-radius: 8px; 
+        ///                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); font-family: &apos;Arial&apos;, sans-serif; color: #333;&quot;&gt;
+        ///        &lt;h1 style=&quot;text-align: center; font-size: 28px; color: #1E88E5; margin-bottom: 10px;&quot;&gt;@nombrenegocio&lt;/h1&gt;
+        ///        &lt;p&gt;&lt;strong&gt;RUC:&lt;/strong&gt; @docnegocio&lt;/p&gt;
+        ///        &lt;p&gt;&lt;strong&gt;Dirección:&lt;/strong&gt; @direcnegocio&lt;/p&gt;
+        ///        &lt;hr style=&quot;border: 0; height: 1px; background- [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string PlantillaCompra {
+            get {
+                return ResourceManager.GetString("PlantillaCompra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;body&gt;
+        ///    &lt;div style=&quot;width: 80%; margin: auto; background-color: #fff; padding: 30px; border-radius: 8px;
+        ///                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); font-family: &apos;Arial&apos;, sans-serif; color: #333;&quot;&gt;
+        ///        
+        ///        &lt;h1 style=&quot;text-align: center; font-size: 28px; color: #1E88E5; margin-bottom: 10px;&quot;&gt;@nombrenegocio&lt;/h1&gt;
+        ///        &lt;p&gt;&lt;strong&gt;RUC:&lt;/strong&gt; @docnegocio&lt;/p&gt;
+        ///        &lt;p&gt;&lt;strong&gt;Dirección:&lt;/strong&gt; @direcnegocio&lt;/p&gt;
+        ///        
+        ///        &lt;hr style=&quot;border: 0; height: [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string PlantillaVenta {
+            get {
+                return ResourceManager.GetString("PlantillaVenta", resourceCulture);
+            }
+        }
     }
 }

@@ -20,41 +20,44 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
-        private void frm_closing(object sender, FormClosingEventArgs e)
+        private void btncancelar_Click(object sender, EventArgs e)
         {
-            TBDni.Text = "";
-            TBClave.Text = "";
-
-            this.Show();
+            this.Close();
         }
 
-        private void BIngresar_Click(object sender, EventArgs e)
+        private void btningresar_Click(object sender, EventArgs e)
         {
-            List<Usuario> TEST = new CN_Usuario().listar();
 
-            Usuario oUsuario = new CN_Usuario().listar().Where(u => u.Documento == TBDni.Text && u.Clave == TBClave.Text).FirstOrDefault();
+            Usuario ousuario = new CN_Usuario().listar().Where(u => u.Documento == TBDni.Text && u.Clave == TBClave.Text).FirstOrDefault();
 
-            if (oUsuario != null)
+
+            if (ousuario != null)
             {
-                Inicio form = new Inicio(oUsuario);
+
+                Inicio form = new Inicio(ousuario);
 
                 form.Show();
                 this.Hide();
 
                 form.FormClosing += frm_closing;
+
             }
             else
             {
-                MessageBox.Show("No se encontro el usuario", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("no se encontro el usuario", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+
+
+
         }
 
-        private void BSalir_Click(object sender, EventArgs e)
+        private void frm_closing(object sender, FormClosingEventArgs e)
         {
-            this.Close();
+
+            TBDni.Text = "";
+            TBClave.Text = "";
+            this.Show();
         }
 
-
-        
     }
 }
