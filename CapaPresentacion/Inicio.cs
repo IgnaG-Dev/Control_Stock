@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Configuration;
 using CapaEntidad;
 using CapaNegocio;
 using CapaPresentacion.Modal;
 using CapaPresentacion.Modales;
 using FontAwesome.Sharp;
+using System.Data.SqlClient;
 
 
 namespace CapaPresentacion
@@ -158,6 +159,55 @@ namespace CapaPresentacion
             if (MessageBox.Show("¿Desea salir?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Close();
+            }
+        }
+
+        private void btnbackup_Click(object sender, EventArgs e)
+        {
+            // Confirmación del usuario antes de iniciar el backup
+            var resultado = MessageBox.Show("¿Está seguro de que desea crear una copia de seguridad de la base de datos?",
+                                            "Confirmar Backup", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                try
+                {
+                    // Define la cadena de conexión a tu base de datos
+                    string connectionString = ConfigurationManager.ConnectionStrings["cadena_conexion"].ConnectionString;
+
+                    // Obtén la fecha actual en el formato deseado (AAA-MM-DD)
+                    string fechaHoy = DateTime.Now.ToString("yyyy-MM-dd");
+
+                    // Define la ruta de backup con la fecha actual en el nombre del archivo
+                    string rutaBackup = $@"C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\Backup\DBVENTAS_{fechaHoy}.bak";
+
+                    // Define la consulta de respaldo
+                    string consulta = $"BACKUP DATABASE [DBVENTAS] TO DISK = N'{rutaBackup}' " +
+                                      "WITH NOFORMAT, NOINIT, NAME = N'DBVENTAS-Full Database Backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10;";
+
+                    // Ejecuta la consulta en SQL Server
+                    using (SqlConnection conexion = new SqlConnection(connectionString))
+                    {
+                        conexion.Open();
+                        using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                        {
+                            comando.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Mensaje de éxito con la ubicación del archivo
+                    MessageBox.Show($"Backup realizado con éxito. El archivo se guardó en: {rutaBackup}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de errores
+                    MessageBox.Show("Error al realizar el backup: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                // Mensaje si el usuario decide cancelar el backup
+                MessageBox.Show("Operación de backup cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
