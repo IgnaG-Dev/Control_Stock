@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
@@ -15,5 +11,7 @@ namespace CapaEntidad
         public string Telefono { get; set; }
         public bool Estado { get; set; }
         public string FechaRegistro { get; set; }
+        public string Direccion { get; set; } 
+        public DateTime? FechaNacimiento { get; set; } 
     }
 }
