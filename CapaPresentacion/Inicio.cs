@@ -156,7 +156,7 @@ namespace CapaPresentacion
 
         private void btnsalir_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Desea salir?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("¿Desea cerrar sesión?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Close();
             }
@@ -209,6 +209,11 @@ namespace CapaPresentacion
                 // Mensaje si el usuario decide cancelar el backup
                 MessageBox.Show("Operación de backup cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void menuinformes_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario((IconMenuItem)sender, new frmInformes());
         }
     }
 }

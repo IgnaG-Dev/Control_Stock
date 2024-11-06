@@ -173,7 +173,66 @@ namespace CapaDatos
             return oLista;
         }
 
+        public decimal ObtenerMontoTotalDelDia()
+        {
+            decimal montoTotalDelDia = 0;
 
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                oconexion.Open();
+                SqlCommand cmd = new SqlCommand(@"
+            SELECT SUM(MontoTotal) AS MontoTotalDelDia
+            FROM COMPRA
+            WHERE YEAR(FechaRegistro) = YEAR(GETDATE())
+              AND MONTH(FechaRegistro) = MONTH(GETDATE())
+              AND DAY(FechaRegistro) = DAY(GETDATE());
+        ", oconexion);
+
+                object result = cmd.ExecuteScalar();
+                montoTotalDelDia = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+            }
+            return montoTotalDelDia;
+        }
+
+
+        public decimal ObtenerMontoTotalDelMes()
+        {
+            decimal montoTotalDelMes = 0;
+
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                oconexion.Open();
+                SqlCommand cmd = new SqlCommand(@"
+                    SELECT SUM(MontoTotal) AS MontoTotalDelMes
+                    FROM COMPRA
+                    WHERE YEAR(FechaRegistro) = YEAR(GETDATE())
+                      AND MONTH(FechaRegistro) = MONTH(GETDATE());
+                ", oconexion);
+
+                object result = cmd.ExecuteScalar();
+                montoTotalDelMes = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+            }
+            return montoTotalDelMes;
+        }
+
+        public decimal ObtenerMontoTotalDelAño()
+        {
+            decimal montoTotalDelAño = 0;
+
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                oconexion.Open();
+                SqlCommand cmd = new SqlCommand(@"
+                    SELECT SUM(MontoTotal) AS MontoTotalDelAño
+                    FROM COMPRA
+                    WHERE YEAR(FechaRegistro) = YEAR(GETDATE());
+                ", oconexion);
+
+                object result = cmd.ExecuteScalar();
+                montoTotalDelAño = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+            }
+            return montoTotalDelAño;
+        }
 
     }
 }

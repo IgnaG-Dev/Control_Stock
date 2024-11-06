@@ -237,7 +237,102 @@ namespace CapaDatos
             return oLista;
         }
 
+        public decimal ObtenerMontoTotalDelDia()
+        {
+            decimal montoTotalDelDia = 0;
 
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                oconexion.Open();
+                SqlCommand cmd = new SqlCommand(@"
+                    SELECT SUM(MontoTotal) AS MontoTotalDelDia
+                    FROM VENTA
+                    WHERE YEAR(FechaRegistro) = YEAR(GETDATE())
+                      AND MONTH(FechaRegistro) = MONTH(GETDATE())
+                      AND DAY(FechaRegistro) = DAY(GETDATE());
+                ", oconexion);
+
+                object result = cmd.ExecuteScalar();
+                montoTotalDelDia = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+            }
+            return montoTotalDelDia;
+        }
+
+        public decimal ObtenerMontoTotalDelMes()
+        {
+            decimal montoTotalDelMes = 0;
+
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                oconexion.Open();
+                SqlCommand cmd = new SqlCommand(@"
+                    SELECT SUM(MontoTotal) AS MontoTotalDelMes
+                    FROM VENTA
+                    WHERE YEAR(FechaRegistro) = YEAR(GETDATE())
+                      AND MONTH(FechaRegistro) = MONTH(GETDATE());
+                ", oconexion);
+
+                object result = cmd.ExecuteScalar();
+                montoTotalDelMes = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+            }
+            return montoTotalDelMes;
+        }
+
+        public decimal ObtenerMontoTotalDelAño()
+        {
+            decimal montoTotalDelAño = 0;
+
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                oconexion.Open();
+                SqlCommand cmd = new SqlCommand(@"
+                    SELECT SUM(MontoTotal) AS MontoTotalDelAño
+                    FROM VENTA
+                    WHERE YEAR(FechaRegistro) = YEAR(GETDATE());
+                ", oconexion);
+
+                object result = cmd.ExecuteScalar();
+                montoTotalDelAño = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+            }
+            return montoTotalDelAño;
+        }
+
+        public List<Producto_Reporte> ObtenerTopProductosVendidos()
+        {
+            List<Producto_Reporte> lista = new List<Producto_Reporte>();
+
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    oconexion.Open();
+                    SqlCommand cmd = new SqlCommand(@"
+                        SELECT TOP 5 p.Nombre AS NombreProducto, SUM(dv.Cantidad) AS CantidadVendida
+                        FROM DETALLE_VENTA dv
+                        INNER JOIN PRODUCTO p ON p.IdProducto = dv.IdProducto
+                        GROUP BY p.Nombre
+                        ORDER BY CantidadVendida DESC;", oconexion);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new Producto_Reporte
+                            {
+                                NombreProducto = dr["NombreProducto"].ToString(),
+                                CantidadVendida = Convert.ToInt32(dr["CantidadVendida"])
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de errores si es necesario
+                    lista = new List<Producto_Reporte>();
+                }
+            }
+            return lista;
+        }
 
     }
 }

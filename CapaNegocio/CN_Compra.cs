@@ -39,6 +39,19 @@ namespace CapaNegocio
             return oCompra;
         }
 
+        public decimal ObtenerMontoTotalDelDia()
+        {
+            return objcd_compra.ObtenerMontoTotalDelDia();
+        }
 
+        public decimal ObtenerMontoTotalDelMes()
+        {
+            return objcd_compra.ObtenerMontoTotalDelMes();
+        }
+
+        public decimal ObtenerMontoTotalDelAño()
+        {
+            return objcd_compra.ObtenerMontoTotalDelAño();
+        }
     }
 }

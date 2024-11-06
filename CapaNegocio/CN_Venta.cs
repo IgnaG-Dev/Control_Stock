@@ -1,11 +1,7 @@
 ﻿using CapaDatos;
 using CapaEntidad;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaNegocio
 {
@@ -46,7 +42,25 @@ namespace CapaNegocio
             return oVenta;
         }
 
+        // Método para obtener el informe de ventas
+        public decimal ObtenerMontoTotalDelDia()
+        {
+            return objcd_venta.ObtenerMontoTotalDelDia();
+        }
 
+        public decimal ObtenerMontoTotalDelMes()
+        {
+            return objcd_venta.ObtenerMontoTotalDelMes();
+        }
+
+        public decimal ObtenerMontoTotalDelAño()
+        {
+            return objcd_venta.ObtenerMontoTotalDelAño();
+        }
+        public List<Producto_Reporte> ObtenerTopProductosVendidos()
+        {
+            return objcd_venta.ObtenerTopProductosVendidos();
+        }
 
     }
 }
