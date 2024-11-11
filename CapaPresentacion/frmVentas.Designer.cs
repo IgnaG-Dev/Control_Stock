@@ -373,7 +373,7 @@
             this.btnagregarproducto.BackColor = System.Drawing.Color.White;
             this.btnagregarproducto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnagregarproducto.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
-            this.btnagregarproducto.IconColor = System.Drawing.Color.SteelBlue;
+            this.btnagregarproducto.IconColor = System.Drawing.Color.Goldenrod;
             this.btnagregarproducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnagregarproducto.IconSize = 30;
             this.btnagregarproducto.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -560,7 +560,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources.Imagen_de_WhatsApp_2024_11_11_a_las_15_45_44_ec0335f2;
             this.ClientSize = new System.Drawing.Size(1113, 516);
             this.Controls.Add(this.btncrearventa);
             this.Controls.Add(this.label16);

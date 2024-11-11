@@ -91,6 +91,16 @@ namespace CapaPresentacion.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Imagen_de_WhatsApp_2024_11_11_a_las_15_45_44_ec0335f2 {
+            get {
+                object obj = ResourceManager.GetObject("Imagen de WhatsApp 2024-11-11 a las 15.45.44_ec0335f2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;body&gt;
@@ -99,7 +109,7 @@ namespace CapaPresentacion.Properties {
         ///        &lt;h1 style=&quot;text-align: center; font-size: 28px; color: #1E88E5; margin-bottom: 10px;&quot;&gt;@nombrenegocio&lt;/h1&gt;
         ///        &lt;p&gt;&lt;strong&gt;RUC:&lt;/strong&gt; @docnegocio&lt;/p&gt;
         ///        &lt;p&gt;&lt;strong&gt;Dirección:&lt;/strong&gt; @direcnegocio&lt;/p&gt;
-        ///        &lt;hr style=&quot;border: 0; height: 1px; background- [resto de la cadena truncado]&quot;;.
+        ///        &lt;hr style=&quot;border: 0; height: 1px; bac [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PlantillaCompra {
             get {
@@ -118,7 +128,7 @@ namespace CapaPresentacion.Properties {
         ///        &lt;p&gt;&lt;strong&gt;RUC:&lt;/strong&gt; @docnegocio&lt;/p&gt;
         ///        &lt;p&gt;&lt;strong&gt;Dirección:&lt;/strong&gt; @direcnegocio&lt;/p&gt;
         ///        
-        ///        &lt;hr style=&quot;border: 0; height: [resto de la cadena truncado]&quot;;.
+        ///        &lt;hr style=&quot;border:  [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PlantillaVenta {
             get {

@@ -145,5 +145,10 @@ namespace CapaPresentacion
             chartTopProductos.Titles.Clear();
             chartTopProductos.Titles.Add("Top 5 de Productos Más Vendidos");
         }
+
+        private void chartTopProductos_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

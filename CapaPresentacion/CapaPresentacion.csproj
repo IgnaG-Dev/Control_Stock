@@ -465,5 +465,8 @@
   <ItemGroup>
     <None Include="Resources\PlantillaVenta.html" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Imagen de WhatsApp 2024-11-11 a las 15.45.44_ec0335f2.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
