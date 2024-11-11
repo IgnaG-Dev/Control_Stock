@@ -51,6 +51,39 @@ namespace CapaPresentacion
 
         }
 
+        public void ObtenerDetallesCompra(string numeroDocumento)
+        {
+            // Asignar el número de documento al campo de búsqueda
+            txtbusqueda.Text = numeroDocumento;
+
+            // Obtener la compra utilizando el número de documento
+            Compra oCompra = new CN_Compra().ObtenerCompra(numeroDocumento);
+
+            if (oCompra.IdCompra != 0)
+            {
+                txtnumerodocumento.Text = oCompra.NumeroDocumento;
+                txtfecha.Text = oCompra.FechaRegistro;
+                txttipodocumento.Text = oCompra.TipoDocumento;
+                txtusuario.Text = oCompra.oUsuario.NombreCompleto;
+                txtdocproveedor.Text = oCompra.oProveedor.Documento;
+                txtnombreproveedor.Text = oCompra.oProveedor.RazonSocial;
+
+                dgvdata.Rows.Clear();
+                foreach (Detalle_Compra dc in oCompra.oDetalleCompra)
+                {
+                    dgvdata.Rows.Add(new object[] { dc.oProducto.Nombre, dc.PrecioCompra, dc.Cantidad, dc.MontoTotal });
+                }
+
+                txtmontototal.Text = oCompra.MontoTotal.ToString("0.00");
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron detalles para este número de documento.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
+
         private void btnborrar_Click(object sender, EventArgs e)
         {
             txtfecha.Text = "";

@@ -150,5 +150,39 @@ namespace CapaPresentacion
                 }
             }
         }
+
+        public void CargarDatosVenta(string numeroDocumento)
+        {
+            // Asignar el número de documento al campo de búsqueda
+            txtbusqueda.Text = numeroDocumento;
+
+            // Obtener la venta utilizando el número de documento
+            Venta oVenta = new CN_Venta().ObtenerVenta(numeroDocumento);
+
+            if (oVenta.IdVenta != 0)
+            {
+                txtnumerodocumento.Text = oVenta.NumeroDocumento;
+                txtfecha.Text = oVenta.FechaRegistro;
+                txttipodocumento.Text = oVenta.TipoDocumento;
+                txtusuario.Text = oVenta.oUsuario.NombreCompleto;
+                txtdoccliente.Text = oVenta.DocumentoCliente;
+                txtnombrecliente.Text = oVenta.NombreCliente;
+
+                dgvdata.Rows.Clear();
+                foreach (Detalle_Venta dv in oVenta.oDetalle_Venta)
+                {
+                    dgvdata.Rows.Add(new object[] { dv.oProducto.Nombre, dv.PrecioVenta, dv.Cantidad, dv.SubTotal });
+                }
+
+                txtmontototal.Text = oVenta.MontoTotal.ToString("0.00");
+                txtmontopago.Text = oVenta.MontoPago.ToString("0.00");
+                txtmontocambio.Text = oVenta.MontoCambio.ToString("0.00");
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron detalles para este número de documento.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
     }
 }

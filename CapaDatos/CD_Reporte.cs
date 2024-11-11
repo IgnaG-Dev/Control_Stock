@@ -3,9 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaDatos
 {
@@ -20,11 +18,25 @@ namespace CapaDatos
                 try
                 {
                     StringBuilder query = new StringBuilder();
-                    SqlCommand cmd = new SqlCommand("sp_ReporteCompras", oconexion);
-                    cmd.Parameters.AddWithValue("fechainicio", fechainicio);
-                    cmd.Parameters.AddWithValue("fechafin", fechafin);
-                    cmd.Parameters.AddWithValue("idproveedor", idproveedor);
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    query.AppendLine("SET DATEFORMAT dmy;");
+                    query.AppendLine("SELECT ");
+                    query.AppendLine("    CONVERT(char(10), c.FechaRegistro, 103) AS FechaRegistro,");
+                    query.AppendLine("    c.TipoDocumento,");
+                    query.AppendLine("    c.NumeroDocumento,");
+                    query.AppendLine("    c.MontoTotal,");
+                    query.AppendLine("    u.NombreCompleto AS UsuarioRegistro,");
+                    query.AppendLine("    pr.Documento AS DocumentoProveedor,");
+                    query.AppendLine("    pr.RazonSocial");
+                    query.AppendLine("FROM COMPRA c");
+                    query.AppendLine("INNER JOIN USUARIO u ON u.IdUsuario = c.IdUsuario");
+                    query.AppendLine("INNER JOIN PROVEEDOR pr ON pr.IdProveedor = c.IdProveedor");
+                    query.AppendLine("WHERE CONVERT(date, c.FechaRegistro) BETWEEN @fechainicio AND @fechafin");
+                    query.AppendLine("AND pr.IdProveedor = IIF(@idproveedor = 0, pr.IdProveedor, @idproveedor)");
+
+                    SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
+                    cmd.Parameters.AddWithValue("@fechainicio", DateTime.ParseExact(fechainicio, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@fechafin", DateTime.ParseExact(fechafin, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@idproveedor", idproveedor);
 
                     oconexion.Open();
 
@@ -32,7 +44,6 @@ namespace CapaDatos
                     {
                         while (dr.Read())
                         {
-
                             lista.Add(new ReporteCompra()
                             {
                                 FechaRegistro = dr["FechaRegistro"].ToString(),
@@ -41,27 +52,18 @@ namespace CapaDatos
                                 MontoTotal = dr["MontoTotal"].ToString(),
                                 UsuarioRegistro = dr["UsuarioRegistro"].ToString(),
                                 DocumentoProveedor = dr["DocumentoProveedor"].ToString(),
-                                RazonSocial = dr["RazonSocial"].ToString(),
-                                CodigoProducto = dr["CodigoProducto"].ToString(),
-                                NombreProducto = dr["NombreProducto"].ToString(),
-                                Categoria = dr["Categoria"].ToString(),
-                                PrecioCompra = dr["PrecioCompra"].ToString(),
-                                PrecioVenta = dr["PrecioVenta"].ToString(),
-                                Cantidad = dr["Cantidad"].ToString(),
-                                SubTotal = dr["SubTotal"].ToString(),
+                                RazonSocial = dr["RazonSocial"].ToString()
                             });
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-
                     lista = new List<ReporteCompra>();
                 }
             }
 
             return lista;
-
         }
 
         public List<ReporteVenta> Venta(string fechainicio, string fechafin)
@@ -72,11 +74,24 @@ namespace CapaDatos
             {
                 try
                 {
-                    StringBuilder query = new StringBuilder();
-                    SqlCommand cmd = new SqlCommand("sp_ReporteVentas", oconexion);
-                    cmd.Parameters.AddWithValue("fechainicio", fechainicio);
-                    cmd.Parameters.AddWithValue("fechafin", fechafin);
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    // Aseguramos el formato de fecha esperado por SQL Server
+                    string query = @"
+            SET DATEFORMAT dmy;  
+            SELECT 
+                CONVERT(char(10), v.FechaRegistro, 103) AS FechaRegistro,
+                v.TipoDocumento,
+                v.NumeroDocumento,
+                v.MontoTotal,
+                u.NombreCompleto AS UsuarioRegistro,
+                v.DocumentoCliente,
+                v.NombreCliente
+            FROM VENTA v
+            INNER JOIN USUARIO u ON u.IdUsuario = v.IdUsuario
+            WHERE CONVERT(date, v.FechaRegistro) BETWEEN @fechainicio AND @fechafin";
+
+                    SqlCommand cmd = new SqlCommand(query, oconexion);
+                    cmd.Parameters.AddWithValue("@fechainicio", DateTime.ParseExact(fechainicio, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@fechafin", DateTime.ParseExact(fechafin, "dd/MM/yyyy", null));
 
                     oconexion.Open();
 
@@ -92,13 +107,7 @@ namespace CapaDatos
                                 MontoTotal = dr["MontoTotal"].ToString(),
                                 UsuarioRegistro = dr["UsuarioRegistro"].ToString(),
                                 DocumentoCliente = dr["DocumentoCliente"].ToString(),
-                                NombreCliente = dr["NombreCliente"].ToString(),
-                                CodigoProducto = dr["CodigoProducto"].ToString(),
-                                NombreProducto = dr["NombreProducto"].ToString(),
-                                Categoria = dr["Categoria"].ToString(),
-                                PrecioVenta = dr["PrecioVenta"].ToString(),
-                                Cantidad = dr["Cantidad"].ToString(),
-                                SubTotal = dr["SubTotal"].ToString(),
+                                NombreCliente = dr["NombreCliente"].ToString()
                             });
                         }
                     }
@@ -110,9 +119,7 @@ namespace CapaDatos
             }
 
             return lista;
-
         }
-
 
 
     }

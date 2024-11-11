@@ -1,10 +1,6 @@
 ﻿using CapaDatos;
 using CapaEntidad;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaNegocio
 {
@@ -17,9 +13,9 @@ namespace CapaNegocio
             return objcd_reporte.Compra(fechainicio, fechafin, idproveedor);
         }
 
-
         public List<ReporteVenta> Venta(string fechainicio, string fechafin)
         {
+            // Obtener el reporte de ventas general sin detalle de productos
             return objcd_reporte.Venta(fechainicio, fechafin);
         }
     }

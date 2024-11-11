@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
     public class ReporteVenta
     {
+        // Información general de la venta
         public string FechaRegistro { get; set; }
         public string TipoDocumento { get; set; }
         public string NumeroDocumento { get; set; }
@@ -22,5 +19,8 @@ namespace CapaEntidad
         public string Cantidad { get; set; }
         public string SubTotal { get; set; }
 
+
+        // Constructor para inicializar datos generales de la venta
+        public ReporteVenta() { }
     }
 }

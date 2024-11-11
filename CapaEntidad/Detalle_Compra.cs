@@ -15,5 +15,7 @@ namespace CapaEntidad
         public int Cantidad { get; set; }
         public decimal MontoTotal { get; set; }
         public string FechaRegistro { get; set; }
+        public string NumeroDocumento { get; set; }
+
     }
 }
