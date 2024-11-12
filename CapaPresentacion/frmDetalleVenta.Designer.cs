@@ -112,9 +112,9 @@
             this.label26.BackColor = System.Drawing.Color.White;
             this.label26.Location = new System.Drawing.Point(449, 61);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(105, 13);
+            this.label26.Size = new System.Drawing.Size(118, 13);
             this.label26.TabIndex = 209;
-            this.label26.Text = "Numero Documento:";
+            this.label26.Text = "Numero Factura/Boleta";
             // 
             // txtbusqueda
             // 

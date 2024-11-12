@@ -2,11 +2,15 @@
 using CapaNegocio;
 using CapaPresentacion.Modal;
 using CapaPresentacion.Utilidades;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +20,6 @@ namespace CapaPresentacion
 {
     public partial class frmVentas : Form
     {
-
         private Usuario _Usuario;
         public frmVentas(Usuario oUsuario = null)
         {
@@ -56,7 +59,6 @@ namespace CapaPresentacion
                 {
                     txtdocumentocliente.Select();
                 }
-
             }
         }
 
@@ -79,7 +81,6 @@ namespace CapaPresentacion
                 {
                     txtcodproducto.Select();
                 }
-
             }
         }
 
@@ -87,7 +88,6 @@ namespace CapaPresentacion
         {
             if (e.KeyData == Keys.Enter)
             {
-
                 Producto oProducto = new CN_Producto().Listar().Where(p => p.Codigo == txtcodproducto.Text && p.Estado == true).FirstOrDefault();
 
                 if (oProducto != null)
@@ -135,7 +135,6 @@ namespace CapaPresentacion
                 return;
             }
 
-
             foreach (DataGridViewRow fila in dgvdata.Rows)
             {
                 if (fila.Cells["IdProducto"].Value.ToString() == txtidproducto.Text)
@@ -147,7 +146,6 @@ namespace CapaPresentacion
 
             if (!producto_existe)
             {
-
                 bool respuesta = new CN_Venta().RestarStock(
                     Convert.ToInt32(txtidproducto.Text),
                     Convert.ToInt32(txtcantidad.Value.ToString())
@@ -168,9 +166,6 @@ namespace CapaPresentacion
                     txtcodproducto.Select();
                 }
             }
-
-
-
         }
 
         private void calcularTotal()
@@ -208,10 +203,12 @@ namespace CapaPresentacion
                 var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
                 var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
 
-                e.Graphics.DrawImage(Properties.Resources.icons8_basura_llena_100, new Rectangle(x, y, w, h));
+                // Usar System.Drawing.Rectangle para evitar la ambigüedad
+                e.Graphics.DrawImage(Properties.Resources.icons8_basura_llena_100, new System.Drawing.Rectangle(x, y, w, h));
                 e.Handled = true;
             }
         }
+
 
         private void dgvdata_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -229,7 +226,6 @@ namespace CapaPresentacion
                         dgvdata.Rows.RemoveAt(index);
                         calcularTotal();
                     }
-
                 }
             }
         }
@@ -257,7 +253,6 @@ namespace CapaPresentacion
                         e.Handled = true;
                     }
                 }
-
             }
         }
 
@@ -284,19 +279,16 @@ namespace CapaPresentacion
                         e.Handled = true;
                     }
                 }
-
             }
         }
 
         private void calcularcambio()
         {
-
             if (txttotalpagar.Text.Trim() == "")
             {
                 MessageBox.Show("No existen productos en la venta", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-
 
             decimal pagacon;
             decimal total = Convert.ToDecimal(txttotalpagar.Text);
@@ -308,7 +300,6 @@ namespace CapaPresentacion
 
             if (decimal.TryParse(txtpagocon.Text.Trim(), out pagacon))
             {
-
                 if (pagacon < total)
                 {
                     txtcambio.Text = "0.00";
@@ -317,12 +308,8 @@ namespace CapaPresentacion
                 {
                     decimal cambio = pagacon - total;
                     txtcambio.Text = cambio.ToString("0.00");
-
                 }
             }
-
-
-
         }
 
         private void txtpagocon_KeyDown(object sender, KeyEventArgs e)
@@ -335,13 +322,11 @@ namespace CapaPresentacion
 
         private void btncrearventa_Click(object sender, EventArgs e)
         {
-
             if (txtdocumentocliente.Text == "")
             {
                 MessageBox.Show("Debe ingresar documento del cliente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-
 
             if (txtnombrecliente.Text == "")
             {
@@ -355,15 +340,11 @@ namespace CapaPresentacion
                 return;
             }
 
-
-
             DataTable detalle_venta = new DataTable();
-
             detalle_venta.Columns.Add("IdProducto", typeof(int));
             detalle_venta.Columns.Add("PrecioVenta", typeof(decimal));
             detalle_venta.Columns.Add("Cantidad", typeof(int));
             detalle_venta.Columns.Add("SubTotal", typeof(decimal));
-
 
             foreach (DataGridViewRow row in dgvdata.Rows)
             {
@@ -375,14 +356,12 @@ namespace CapaPresentacion
                 });
             }
 
-
             int idcorrelativo = new CN_Venta().ObtenerCorrelativo();
             string numeroDocumento = string.Format("{0:00000}", idcorrelativo);
             calcularcambio();
 
             Venta oVenta = new Venta()
             {
-
                 oUsuario = new Usuario() { IdUsuario = _Usuario.IdUsuario },
                 TipoDocumento = ((OpcionCombo)cbotipodocumento.SelectedItem).Texto,
                 NumeroDocumento = numeroDocumento,
@@ -393,16 +372,64 @@ namespace CapaPresentacion
                 MontoTotal = Convert.ToDecimal(txttotalpagar.Text)
             };
 
-
             string mensaje = string.Empty;
             bool respuesta = new CN_Venta().Registrar(oVenta, detalle_venta, out mensaje);
 
             if (respuesta)
             {
-                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento + "\n\n¿Desea copiar al portapapeles?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento + "\n\n¿Desea generar el PDF?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (result == DialogResult.Yes)
-                    Clipboard.SetText(numeroDocumento);
+                {
+                    try
+                    {
+                        string Texto_Html = Properties.Resources.PlantillaVenta.ToString();
+                        Texto_Html = Texto_Html.Replace("@numerodocumento", numeroDocumento);
+                        Texto_Html = Texto_Html.Replace("@doccliente", txtdocumentocliente.Text);
+                        Texto_Html = Texto_Html.Replace("@nombrecliente", txtnombrecliente.Text);
+                        Texto_Html = Texto_Html.Replace("@fecharegistro", DateTime.Now.ToString("dd/MM/yyyy"));
+
+                        string filas = string.Empty;
+                        foreach (DataGridViewRow row in dgvdata.Rows)
+                        {
+                            filas += "<tr>";
+                            filas += "<td>" + row.Cells["Producto"].Value.ToString() + "</td>";
+                            filas += "<td>" + row.Cells["Precio"].Value.ToString() + "</td>";
+                            filas += "<td>" + row.Cells["Cantidad"].Value.ToString() + "</td>";
+                            filas += "<td>" + row.Cells["SubTotal"].Value.ToString() + "</td>";
+                            filas += "</tr>";
+                        }
+                        Texto_Html = Texto_Html.Replace("@filas", filas);
+                        Texto_Html = Texto_Html.Replace("@montototal", txttotalpagar.Text);
+                        Texto_Html = Texto_Html.Replace("@pagocon", txtpagocon.Text);
+                        Texto_Html = Texto_Html.Replace("@cambio", txtcambio.Text);
+
+                        SaveFileDialog savefile = new SaveFileDialog();
+                        savefile.FileName = $"Venta_{numeroDocumento}.pdf";
+                        savefile.Filter = "Pdf Files|*.pdf";
+
+                        if (savefile.ShowDialog() == DialogResult.OK)
+                        {
+                            using (FileStream stream = new FileStream(savefile.FileName, FileMode.Create))
+                            {
+                                Document pdfDoc = new Document(PageSize.A4, 25, 25, 25, 25);
+                                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                                pdfDoc.Open();
+                                using (StringReader sr = new StringReader(Texto_Html))
+                                {
+                                    XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                                }
+                                pdfDoc.Close();
+                                stream.Close();
+                            }
+                            MessageBox.Show("Documento PDF generado exitosamente.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al generar el PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
 
                 txtdocumentocliente.Text = "";
                 txtnombrecliente.Text = "";
@@ -413,15 +440,10 @@ namespace CapaPresentacion
             }
             else
                 MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-
-
         }
 
         private void frmVentas_KeyDown(object sender, KeyEventArgs e)
         {
-
         }
-
     }
 }
