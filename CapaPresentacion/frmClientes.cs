@@ -3,10 +3,7 @@ using CapaNegocio;
 using CapaPresentacion.Utilidades;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions; // Necesario para las validaciones de correo
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CapaPresentacion
@@ -20,7 +17,6 @@ namespace CapaPresentacion
 
         private void frmClientes_Load(object sender, EventArgs e)
         {
-            // Inicializa los valores de los ComboBoxes
             cboestado.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
             cboestado.Items.Add(new OpcionCombo() { Valor = 0, Texto = "No Activo" });
             cboestado.DisplayMember = "Texto";
@@ -37,81 +33,175 @@ namespace CapaPresentacion
             cbobusqueda.DisplayMember = "Texto";
             cbobusqueda.ValueMember = "Valor";
             cbobusqueda.SelectedIndex = 0;
+
+            // Mostrar todos los clientes
+            List<Cliente> lista = new CN_Cliente().Listar();
+            foreach (Cliente item in lista)
+            {
+                dgvdata.Rows.Add(new object[]
+                {
+                    "", item.IdCliente, item.Documento, item.NombreCompleto, item.Correo, item.Telefono,
+                    item.Direccion, item.FechaNacimiento?.ToString("yyyy-MM-dd"),
+                    item.Estado ? 1 : 0,
+                    item.Estado ? "Activo" : "No Activo"
+                });
+            }
         }
 
-        // Valida que los campos obligatorios estén completos
-        private bool ValidarFormulario()
-        {
-            if (string.IsNullOrWhiteSpace(txtdocumento.Text))
-            {
-                MessageBox.Show("Debe ingresar un número de documento.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtnombrecompleto.Text))
-            {
-                MessageBox.Show("Debe ingresar un nombre completo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtcorreo.Text) || !EsCorreoValido(txtcorreo.Text))
-            {
-                MessageBox.Show("Debe ingresar un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txttelefono.Text))
-            {
-                MessageBox.Show("Debe ingresar un número de teléfono.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            return true;
-        }
-
-        // Valida el formato del correo electrónico
-        private bool EsCorreoValido(string correo)
-        {
-            string patronCorreo = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return Regex.IsMatch(correo, patronCorreo);
-        }
-
-        // Botón Guardar (aún no realiza acciones definitivas, solo validaciones)
         private void btnguardar_Click(object sender, EventArgs e)
         {
-            if (ValidarFormulario())
+            string mensaje = string.Empty;
+
+            Cliente obj = new Cliente()
             {
-                MessageBox.Show("Validaciones correctas. Aún no se guarda nada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                IdCliente = Convert.ToInt32(txtid.Text),
+                Documento = txtdocumento.Text,
+                NombreCompleto = txtnombrecompleto.Text,
+                Correo = txtcorreo.Text,
+                Telefono = txttelefono.Text,
+                Direccion = txtdireccion.Text,
+                FechaNacimiento = dtpFechaNacimiento.Value,
+                Estado = Convert.ToInt32(((OpcionCombo)cboestado.SelectedItem).Valor) == 1
+            };
+
+            if (obj.IdCliente == 0)
+            {
+                int idgenerado = new CN_Cliente().Registrar(obj, out mensaje);
+
+                if (idgenerado != 0)
+                {
+                    dgvdata.Rows.Add(new object[]
+                    {
+                        "", idgenerado, txtdocumento.Text, txtnombrecompleto.Text, txtcorreo.Text, txttelefono.Text,
+                        txtdireccion.Text, dtpFechaNacimiento.Value.ToString("yyyy-MM-dd"),
+                        ((OpcionCombo)cboestado.SelectedItem).Valor.ToString(),
+                        ((OpcionCombo)cboestado.SelectedItem).Texto.ToString()
+                    });
+                    Limpiar();
+                }
+                else
+                {
+                    MessageBox.Show(mensaje);
+                }
+            }
+            else
+            {
+                bool resultado = new CN_Cliente().Editar(obj, out mensaje);
+
+                if (resultado)
+                {
+                    DataGridViewRow row = dgvdata.Rows[Convert.ToInt32(txtindice.Text)];
+                    row.Cells["Id"].Value = txtid.Text;
+                    row.Cells["Documento"].Value = txtdocumento.Text;
+                    row.Cells["NombreCompleto"].Value = txtnombrecompleto.Text;
+                    row.Cells["Correo"].Value = txtcorreo.Text;
+                    row.Cells["Telefono"].Value = txttelefono.Text;
+                    row.Cells["Direccion"].Value = txtdireccion.Text;
+                    row.Cells["FechaNacimiento"].Value = dtpFechaNacimiento.Value.ToString("yyyy-MM-dd");
+                    row.Cells["EstadoValor"].Value = ((OpcionCombo)cboestado.SelectedItem).Valor.ToString();
+                    row.Cells["Estado"].Value = ((OpcionCombo)cboestado.SelectedItem).Texto.ToString();
+                    Limpiar();
+                }
+                else
+                {
+                    MessageBox.Show(mensaje);
+                }
             }
         }
 
-        // Botón Eliminar (solo validaciones por ahora)
-        private void btneliminar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtid.Text) || txtid.Text == "0")
-            {
-                MessageBox.Show("Debe seleccionar un cliente para eliminar.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            MessageBox.Show("Validaciones correctas. Aún no se elimina nada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        // Limpia los campos
         private void Limpiar()
         {
+            txtindice.Text = "-1";
             txtid.Text = "0";
             txtdocumento.Text = "";
             txtnombrecompleto.Text = "";
             txtcorreo.Text = "";
             txttelefono.Text = "";
+            txtdireccion.Text = "";
+            dtpFechaNacimiento.Value = DateTime.Now;
             cboestado.SelectedIndex = 0;
+            txtdocumento.Select();
         }
 
-        // Otras funciones como buscar, limpiar buscador, etc., pueden mantenerse en blanco hasta que las necesites
+        private void dgvdata_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvdata.Columns[e.ColumnIndex].Name == "btnseleccionar")
+            {
+                int indice = e.RowIndex;
+                if (indice >= 0)
+                {
+                    txtindice.Text = indice.ToString();
+                    txtid.Text = dgvdata.Rows[indice].Cells["Id"].Value.ToString();
+                    txtdocumento.Text = dgvdata.Rows[indice].Cells["Documento"].Value.ToString();
+                    txtnombrecompleto.Text = dgvdata.Rows[indice].Cells["NombreCompleto"].Value.ToString();
+                    txtcorreo.Text = dgvdata.Rows[indice].Cells["Correo"].Value.ToString();
+                    txttelefono.Text = dgvdata.Rows[indice].Cells["Telefono"].Value.ToString();
+                    txtdireccion.Text = dgvdata.Rows[indice].Cells["Direccion"].Value.ToString();
+                    dtpFechaNacimiento.Value = Convert.ToDateTime(dgvdata.Rows[indice].Cells["FechaNacimiento"].Value);
+
+                    foreach (OpcionCombo oc in cboestado.Items)
+                    {
+                        if (Convert.ToInt32(oc.Valor) == Convert.ToInt32(dgvdata.Rows[indice].Cells["EstadoValor"].Value))
+                        {
+                            int indice_combo = cboestado.Items.IndexOf(oc);
+                            cboestado.SelectedIndex = indice_combo;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btneliminar_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(txtid.Text) != 0)
+            {
+                if (MessageBox.Show("¿Desea eliminar el cliente?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    string mensaje = string.Empty;
+                    Cliente obj = new Cliente()
+                    {
+                        IdCliente = Convert.ToInt32(txtid.Text)
+                    };
+
+                    bool respuesta = new CN_Cliente().Eliminar(obj, out mensaje);
+
+                    if (respuesta)
+                    {
+                        dgvdata.Rows.RemoveAt(Convert.ToInt32(txtindice.Text));
+                        Limpiar();
+                    }
+                    else
+                    {
+                        MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+        }
+
         private void btnbuscar_Click(object sender, EventArgs e)
         {
-            // Solo validaciones, aún sin implementar
+            string columnaFiltro = ((OpcionCombo)cbobusqueda.SelectedItem).Valor.ToString();
+
+            if (dgvdata.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgvdata.Rows)
+                {
+                    if (row.Cells[columnaFiltro].Value.ToString().Trim().ToUpper().Contains(txtbusqueda.Text.Trim().ToUpper()))
+                        row.Visible = true;
+                    else
+                        row.Visible = false;
+                }
+            }
+        }
+
+        private void btnlimpiarbuscador_Click(object sender, EventArgs e)
+        {
+            txtbusqueda.Text = "";
+            foreach (DataGridViewRow row in dgvdata.Rows)
+            {
+                row.Visible = true;
+            }
         }
 
         private void btnlimpiar_Click(object sender, EventArgs e)

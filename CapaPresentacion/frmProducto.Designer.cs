@@ -2,8 +2,15 @@
 {
     partial class frmProducto
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -13,6 +20,12 @@
             base.Dispose(disposing);
         }
 
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -73,6 +86,7 @@
             this.btnbuscar.Size = new System.Drawing.Size(42, 23);
             this.btnbuscar.TabIndex = 53;
             this.btnbuscar.UseVisualStyleBackColor = false;
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
             // 
             // dgvdata
             // 
@@ -111,6 +125,8 @@
             this.dgvdata.RowTemplate.Height = 28;
             this.dgvdata.Size = new System.Drawing.Size(841, 358);
             this.dgvdata.TabIndex = 47;
+            this.dgvdata.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdata_CellContentClick);
+            this.dgvdata.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvdata_CellPainting);
             // 
             // btnseleccionar
             // 
@@ -207,6 +223,7 @@
             this.btnlimpiarbuscador.TabIndex = 54;
             this.btnlimpiarbuscador.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnlimpiarbuscador.UseVisualStyleBackColor = false;
+            this.btnlimpiarbuscador.Click += new System.EventHandler(this.btnlimpiarbuscador_Click);
             // 
             // txtbusqueda
             // 
@@ -294,6 +311,7 @@
             this.btneliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btneliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btneliminar.UseVisualStyleBackColor = false;
+            this.btneliminar.Click += new System.EventHandler(this.btneliminar_Click);
             // 
             // btnlimpiar
             // 
@@ -455,12 +473,14 @@
             this.btnexportar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnexportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnexportar.UseVisualStyleBackColor = false;
+            this.btnexportar.Click += new System.EventHandler(this.btnexportar_Click);
             // 
             // frmProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources.Imagen_de_WhatsApp_2024_11_11_a_las_15_45_44_ec0335f2;
             this.ClientSize = new System.Drawing.Size(1149, 584);
             this.Controls.Add(this.btnexportar);
             this.Controls.Add(this.btnbuscar);
@@ -489,11 +509,14 @@
             this.Controls.Add(this.label1);
             this.Name = "frmProducto";
             this.Text = "frmProducto";
+            this.Load += new System.EventHandler(this.frmProducto_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+        #endregion
 
         private FontAwesome.Sharp.IconButton btnbuscar;
         private System.Windows.Forms.DataGridView dgvdata;

@@ -1,8 +1,14 @@
-﻿using System;
+﻿using CapaEntidad;
+using CapaNegocio;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,74 +23,166 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
-        // Validación para el campo de búsqueda (Número de documento)
+        private void frmDetalleVenta_Load(object sender, EventArgs e)
+        {
+            txtbusqueda.Select();
+        }
+
         private void btnbuscar_Click(object sender, EventArgs e)
         {
-            if (ValidarBusqueda())
+            Venta oVenta = new CN_Venta().ObtenerVenta(txtbusqueda.Text);
+
+            if (oVenta.IdVenta != 0)
             {
-                // Lógica para buscar el detalle de la venta
-                MessageBox.Show("Búsqueda exitosa.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                txtnumerodocumento.Text = oVenta.NumeroDocumento;
+
+                txtfecha.Text = oVenta.FechaRegistro;
+                txttipodocumento.Text = oVenta.TipoDocumento;
+                txtusuario.Text = oVenta.oUsuario.NombreCompleto;
+
+
+                txtdoccliente.Text = oVenta.DocumentoCliente;
+                txtnombrecliente.Text = oVenta.NombreCliente;
+
+                dgvdata.Rows.Clear();
+                foreach (Detalle_Venta dv in oVenta.oDetalle_Venta)
+                {
+                    dgvdata.Rows.Add(new object[] { dv.oProducto.Nombre, dv.PrecioVenta, dv.Cantidad, dv.SubTotal });
+                }
+
+                txtmontototal.Text = oVenta.MontoTotal.ToString("0.00");
+                txtmontopago.Text = oVenta.MontoPago.ToString("0.00");
+                txtmontocambio.Text = oVenta.MontoCambio.ToString("0.00");
+
+
             }
+
         }
 
-        // Limpiar el campo de búsqueda
         private void btnborrar_Click(object sender, EventArgs e)
         {
-            txtbusqueda.Clear();
-            txtbusqueda.Focus();
+            txtfecha.Text = "";
+            txttipodocumento.Text = "";
+            txtusuario.Text = "";
+            txtdoccliente.Text = "";
+            txtnombrecliente.Text = "";
+
+            dgvdata.Rows.Clear();
+            txtmontototal.Text = "0.00";
+            txtmontopago.Text = "0.00";
+            txtmontocambio.Text = "0.00";
         }
 
-        // Descargar el detalle de la venta en PDF
         private void btndescargar_Click(object sender, EventArgs e)
         {
-            if (ValidarDescarga())
+            if (txttipodocumento.Text == "")
             {
-                // Lógica para descargar el PDF
-                MessageBox.Show("Descarga en PDF completada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se encontraron resultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            string Texto_Html = Properties.Resources.PlantillaVenta.ToString();
+            Negocio odatos = new CN_Negocio().ObtenerDatos();
+
+            Texto_Html = Texto_Html.Replace("@nombrenegocio", odatos.Nombre.ToUpper());
+            Texto_Html = Texto_Html.Replace("@docnegocio", odatos.RUC);
+            Texto_Html = Texto_Html.Replace("@direcnegocio", odatos.Direccion);
+
+            Texto_Html = Texto_Html.Replace("@tipodocumento", txttipodocumento.Text.ToUpper());
+            Texto_Html = Texto_Html.Replace("@numerodocumento", txtnumerodocumento.Text);
+
+
+            Texto_Html = Texto_Html.Replace("@doccliente", txtdoccliente.Text);
+            Texto_Html = Texto_Html.Replace("@nombrecliente", txtnombrecliente.Text);
+            Texto_Html = Texto_Html.Replace("@fecharegistro", txtfecha.Text);
+            Texto_Html = Texto_Html.Replace("@usuarioregistro", txtusuario.Text);
+
+            string filas = string.Empty;
+            foreach (DataGridViewRow row in dgvdata.Rows)
+            {
+                filas += "<tr>";
+                filas += "<td>" + row.Cells["Producto"].Value.ToString() + "</td>";
+                filas += "<td>" + row.Cells["Precio"].Value.ToString() + "</td>";
+                filas += "<td>" + row.Cells["Cantidad"].Value.ToString() + "</td>";
+                filas += "<td>" + row.Cells["SubTotal"].Value.ToString() + "</td>";
+                filas += "</tr>";
+            }
+            Texto_Html = Texto_Html.Replace("@filas", filas);
+            Texto_Html = Texto_Html.Replace("@montototal", txtmontototal.Text);
+            Texto_Html = Texto_Html.Replace("@pagocon", txtmontopago.Text);
+            Texto_Html = Texto_Html.Replace("@cambio", txtmontocambio.Text);
+
+            SaveFileDialog savefile = new SaveFileDialog();
+            savefile.FileName = string.Format("Venta_{0}.pdf", txtnumerodocumento.Text);
+            savefile.Filter = "Pdf Files|*.pdf";
+
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                using (FileStream stream = new FileStream(savefile.FileName, FileMode.Create))
+                {
+
+                    Document pdfDoc = new Document(PageSize.A4, 25, 25, 25, 25);
+
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+
+                    bool obtenido = true;
+                    byte[] byteImage = new CN_Negocio().ObtenerLogo(out obtenido);
+
+                    if (obtenido)
+                    {
+                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
+                        img.ScaleToFit(60, 60);
+                        img.Alignment = iTextSharp.text.Image.UNDERLYING;
+                        img.SetAbsolutePosition(pdfDoc.Left, pdfDoc.GetTop(51));
+                        pdfDoc.Add(img);
+                    }
+
+                    using (StringReader sr = new StringReader(Texto_Html))
+                    {
+                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                    }
+
+                    pdfDoc.Close();
+                    stream.Close();
+                    MessageBox.Show("Documento Generado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
-        // Método para validar la búsqueda
-        private bool ValidarBusqueda()
+        public void CargarDatosVenta(string numeroDocumento)
         {
-            if (string.IsNullOrWhiteSpace(txtbusqueda.Text))
+            // Asignar el número de documento al campo de búsqueda
+            txtbusqueda.Text = numeroDocumento;
+
+            // Obtener la venta utilizando el número de documento
+            Venta oVenta = new CN_Venta().ObtenerVenta(numeroDocumento);
+
+            if (oVenta.IdVenta != 0)
             {
-                MessageBox.Show("El número de documento de búsqueda es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtbusqueda.Focus();
-                return false;
+                txtnumerodocumento.Text = oVenta.NumeroDocumento;
+                txtfecha.Text = oVenta.FechaRegistro;
+                txttipodocumento.Text = oVenta.TipoDocumento;
+                txtusuario.Text = oVenta.oUsuario.NombreCompleto;
+                txtdoccliente.Text = oVenta.DocumentoCliente;
+                txtnombrecliente.Text = oVenta.NombreCliente;
+
+                dgvdata.Rows.Clear();
+                foreach (Detalle_Venta dv in oVenta.oDetalle_Venta)
+                {
+                    dgvdata.Rows.Add(new object[] { dv.oProducto.Nombre, dv.PrecioVenta, dv.Cantidad, dv.SubTotal });
+                }
+
+                txtmontototal.Text = oVenta.MontoTotal.ToString("0.00");
+                txtmontopago.Text = oVenta.MontoPago.ToString("0.00");
+                txtmontocambio.Text = oVenta.MontoCambio.ToString("0.00");
             }
-            return true;
+            else
+            {
+                MessageBox.Show("No se encontraron detalles para este número de documento.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        // Método para validar antes de descargar el PDF
-        private bool ValidarDescarga()
-        {
-            StringBuilder sbErrores = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(txtdoccliente.Text))
-            {
-                sbErrores.AppendLine("El documento del cliente es obligatorio.");
-            }
-            if (string.IsNullOrWhiteSpace(txtnombrecliente.Text))
-            {
-                sbErrores.AppendLine("El nombre del cliente es obligatorio.");
-            }
-            if (dgvdata.Rows.Count == 0)
-            {
-                sbErrores.AppendLine("No hay productos registrados en esta venta.");
-            }
-            if (string.IsNullOrWhiteSpace(txtmontototal.Text) || txtmontototal.Text == "0")
-            {
-                sbErrores.AppendLine("El monto total no puede estar vacío o ser cero.");
-            }
-
-            if (sbErrores.Length > 0)
-            {
-                MessageBox.Show(sbErrores.ToString(), "Errores de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            return true;
-        }
     }
 }

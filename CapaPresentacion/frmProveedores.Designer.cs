@@ -116,6 +116,8 @@
             this.dgvdata.RowTemplate.Height = 28;
             this.dgvdata.Size = new System.Drawing.Size(841, 372);
             this.dgvdata.TabIndex = 71;
+            this.dgvdata.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdata_CellContentClick);
+            this.dgvdata.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvdata_CellPainting);
             // 
             // btnseleccionar
             // 
@@ -277,6 +279,7 @@
             this.btneliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btneliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btneliminar.UseVisualStyleBackColor = false;
+            this.btneliminar.Click += new System.EventHandler(this.btneliminar_Click);
             // 
             // btnlimpiar
             // 
@@ -422,7 +425,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources.Imagen_de_WhatsApp_2024_11_11_a_las_15_45_44_ec0335f2;
             this.ClientSize = new System.Drawing.Size(1140, 500);
             this.Controls.Add(this.btnbuscar);
             this.Controls.Add(this.dgvdata);
@@ -450,6 +454,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmProveedores";
             this.Text = "frmProveedores";
+            this.Load += new System.EventHandler(this.frmProveedores_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

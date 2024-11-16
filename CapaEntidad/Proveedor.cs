@@ -15,5 +15,6 @@ namespace CapaEntidad
         public string Telefono { get; set; }
         public bool Estado { get; set; }
         public string FechaRegistro { get; set; }
+
     }
 }

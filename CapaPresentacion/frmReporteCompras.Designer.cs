@@ -1,16 +1,11 @@
-﻿namespace CapaPresentacion
+﻿using System.Windows.Forms;
+
+namespace CapaPresentacion
 {
     partial class frmReporteCompras
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +17,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -48,13 +39,7 @@
             this.UsuarioRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DocumentoProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RazonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodigoProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NombreProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnVerDetalles = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnexportar = new FontAwesome.Sharp.IconButton();
             this.btnbuscar = new FontAwesome.Sharp.IconButton();
             this.btnlimpiarbuscador = new FontAwesome.Sharp.IconButton();
@@ -68,7 +53,7 @@
             // 
             this.label10.BackColor = System.Drawing.Color.White;
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.label10.Location = new System.Drawing.Point(10, 9);
             this.label10.Name = "label10";
             this.label10.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
@@ -80,7 +65,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.label2.Location = new System.Drawing.Point(24, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(165, 25);
@@ -119,7 +104,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.label3.Location = new System.Drawing.Point(224, 53);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 15);
@@ -129,7 +114,7 @@
             // btnbuscarresultado
             // 
             this.btnbuscarresultado.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnbuscarresultado.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscarresultado.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscarresultado.IconColor = System.Drawing.Color.Black;
             this.btnbuscarresultado.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscarresultado.IconSize = 17;
@@ -142,6 +127,7 @@
             this.btnbuscarresultado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnbuscarresultado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnbuscarresultado.UseVisualStyleBackColor = true;
+            this.btnbuscarresultado.Click += new System.EventHandler(this.btnbuscarresultado_Click);
             // 
             // cboproveedor
             // 
@@ -156,7 +142,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.White;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.label5.Location = new System.Drawing.Point(411, 56);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 15);
@@ -167,7 +153,7 @@
             // 
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.label1.Location = new System.Drawing.Point(10, 100);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
@@ -181,7 +167,7 @@
             this.dgvdata.BackgroundColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(2);
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
@@ -197,13 +183,7 @@
             this.UsuarioRegistro,
             this.DocumentoProveedor,
             this.RazonSocial,
-            this.CodigoProducto,
-            this.NombreProducto,
-            this.Categoria,
-            this.PrecioCompra,
-            this.PrecioVenta,
-            this.Cantidad,
-            this.SubTotal});
+            this.btnVerDetalles});
             this.dgvdata.Location = new System.Drawing.Point(23, 153);
             this.dgvdata.MultiSelect = false;
             this.dgvdata.Name = "dgvdata";
@@ -212,8 +192,9 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             this.dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvdata.RowTemplate.Height = 28;
-            this.dgvdata.Size = new System.Drawing.Size(1099, 329);
+            this.dgvdata.Size = new System.Drawing.Size(800, 329);
             this.dgvdata.TabIndex = 217;
+            this.dgvdata.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdata_CellContentClick);
             // 
             // FechaRegistro
             // 
@@ -257,47 +238,13 @@
             this.RazonSocial.Name = "RazonSocial";
             this.RazonSocial.ReadOnly = true;
             // 
-            // CodigoProducto
+            // btnVerDetalles
             // 
-            this.CodigoProducto.HeaderText = "Codigo Producto";
-            this.CodigoProducto.Name = "CodigoProducto";
-            this.CodigoProducto.ReadOnly = true;
-            // 
-            // NombreProducto
-            // 
-            this.NombreProducto.HeaderText = "Nombre Producto";
-            this.NombreProducto.Name = "NombreProducto";
-            this.NombreProducto.ReadOnly = true;
-            // 
-            // Categoria
-            // 
-            this.Categoria.HeaderText = "Categoria";
-            this.Categoria.Name = "Categoria";
-            this.Categoria.ReadOnly = true;
-            // 
-            // PrecioCompra
-            // 
-            this.PrecioCompra.HeaderText = "Precio Compra";
-            this.PrecioCompra.Name = "PrecioCompra";
-            this.PrecioCompra.ReadOnly = true;
-            // 
-            // PrecioVenta
-            // 
-            this.PrecioVenta.HeaderText = "Precio Venta";
-            this.PrecioVenta.Name = "PrecioVenta";
-            this.PrecioVenta.ReadOnly = true;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.ReadOnly = true;
-            // 
-            // SubTotal
-            // 
-            this.SubTotal.HeaderText = "Sub Total";
-            this.SubTotal.Name = "SubTotal";
-            this.SubTotal.ReadOnly = true;
+            this.btnVerDetalles.HeaderText = "Ver Detalles";
+            this.btnVerDetalles.Name = "btnVerDetalles";
+            this.btnVerDetalles.ReadOnly = true;
+            this.btnVerDetalles.Text = "Ver Detalles";
+            this.btnVerDetalles.UseColumnTextForButtonValue = true;
             // 
             // btnexportar
             // 
@@ -317,6 +264,7 @@
             this.btnexportar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnexportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnexportar.UseVisualStyleBackColor = false;
+            this.btnexportar.Click += new System.EventHandler(this.btnexportar_Click);
             // 
             // btnbuscar
             // 
@@ -324,8 +272,7 @@
             this.btnbuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnbuscar.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnbuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnbuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnbuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnbuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnbuscar.IconColor = System.Drawing.Color.Black;
             this.btnbuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnbuscar.IconSize = 16;
@@ -334,6 +281,7 @@
             this.btnbuscar.Size = new System.Drawing.Size(42, 23);
             this.btnbuscar.TabIndex = 221;
             this.btnbuscar.UseVisualStyleBackColor = false;
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
             // 
             // btnlimpiarbuscador
             // 
@@ -341,7 +289,6 @@
             this.btnlimpiarbuscador.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnlimpiarbuscador.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnlimpiarbuscador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnlimpiarbuscador.ForeColor = System.Drawing.Color.Black;
             this.btnlimpiarbuscador.IconChar = FontAwesome.Sharp.IconChar.Broom;
             this.btnlimpiarbuscador.IconColor = System.Drawing.Color.Black;
             this.btnlimpiarbuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -350,8 +297,8 @@
             this.btnlimpiarbuscador.Name = "btnlimpiarbuscador";
             this.btnlimpiarbuscador.Size = new System.Drawing.Size(42, 23);
             this.btnlimpiarbuscador.TabIndex = 222;
-            this.btnlimpiarbuscador.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnlimpiarbuscador.UseVisualStyleBackColor = false;
+            this.btnlimpiarbuscador.Click += new System.EventHandler(this.btnlimpiarbuscador_Click);
             // 
             // txtbusqueda
             // 
@@ -383,6 +330,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources.Imagen_de_WhatsApp_2024_11_11_a_las_15_45_44_ec0335f2;
             this.ClientSize = new System.Drawing.Size(1145, 501);
             this.Controls.Add(this.btnexportar);
             this.Controls.Add(this.btnbuscar);
@@ -403,6 +352,7 @@
             this.Controls.Add(this.label10);
             this.Name = "frmReporteCompras";
             this.Text = "frmReporteCompras";
+            this.Load += new System.EventHandler(this.frmReporteCompras_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -429,18 +379,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioRegistro;
         private System.Windows.Forms.DataGridViewTextBoxColumn DocumentoProveedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn RazonSocial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoProducto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NombreProducto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioCompra;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioVenta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
         private FontAwesome.Sharp.IconButton btnexportar;
         private FontAwesome.Sharp.IconButton btnbuscar;
         private FontAwesome.Sharp.IconButton btnlimpiarbuscador;
         private System.Windows.Forms.TextBox txtbusqueda;
         private System.Windows.Forms.ComboBox cbobusqueda;
         private System.Windows.Forms.Label label11;
+        private DataGridViewButtonColumn btnVerDetalles;
     }
 }

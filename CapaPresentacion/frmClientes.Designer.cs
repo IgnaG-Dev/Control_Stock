@@ -38,6 +38,8 @@
             this.NombreCompleto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Correo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaNacimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EstadoValor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnlimpiarbuscador = new FontAwesome.Sharp.IconButton();
@@ -62,6 +64,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtfechanacimiento = new System.Windows.Forms.Label();
+            this.txtdireccion = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,6 +110,8 @@
             this.NombreCompleto,
             this.Correo,
             this.Telefono,
+            this.Direccion,
+            this.FechaNacimiento,
             this.EstadoValor,
             this.Estado});
             this.dgvdata.Location = new System.Drawing.Point(277, 101);
@@ -116,6 +124,7 @@
             this.dgvdata.RowTemplate.Height = 28;
             this.dgvdata.Size = new System.Drawing.Size(841, 372);
             this.dgvdata.TabIndex = 47;
+            this.dgvdata.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdata_CellContentClick);
             // 
             // btnseleccionar
             // 
@@ -158,6 +167,18 @@
             this.Telefono.Name = "Telefono";
             this.Telefono.ReadOnly = true;
             // 
+            // Direccion
+            // 
+            this.Direccion.HeaderText = "Direccion";
+            this.Direccion.Name = "Direccion";
+            this.Direccion.ReadOnly = true;
+            // 
+            // FechaNacimiento
+            // 
+            this.FechaNacimiento.HeaderText = "FechaNacimiento";
+            this.FechaNacimiento.Name = "FechaNacimiento";
+            this.FechaNacimiento.ReadOnly = true;
+            // 
             // EstadoValor
             // 
             this.EstadoValor.HeaderText = "EstadoValor";
@@ -188,6 +209,7 @@
             this.btnlimpiarbuscador.TabIndex = 54;
             this.btnlimpiarbuscador.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnlimpiarbuscador.UseVisualStyleBackColor = false;
+            this.btnlimpiarbuscador.Click += new System.EventHandler(this.btnlimpiarbuscador_Click);
             // 
             // txtbusqueda
             // 
@@ -268,7 +290,7 @@
             this.btneliminar.IconColor = System.Drawing.Color.White;
             this.btneliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btneliminar.IconSize = 16;
-            this.btneliminar.Location = new System.Drawing.Point(35, 352);
+            this.btneliminar.Location = new System.Drawing.Point(35, 448);
             this.btneliminar.Name = "btneliminar";
             this.btneliminar.Size = new System.Drawing.Size(192, 23);
             this.btneliminar.TabIndex = 45;
@@ -289,7 +311,7 @@
             this.btnlimpiar.IconColor = System.Drawing.Color.White;
             this.btnlimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnlimpiar.IconSize = 18;
-            this.btnlimpiar.Location = new System.Drawing.Point(35, 323);
+            this.btnlimpiar.Location = new System.Drawing.Point(35, 419);
             this.btnlimpiar.Name = "btnlimpiar";
             this.btnlimpiar.Size = new System.Drawing.Size(192, 23);
             this.btnlimpiar.TabIndex = 44;
@@ -310,7 +332,7 @@
             this.btnguardar.IconColor = System.Drawing.Color.White;
             this.btnguardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnguardar.IconSize = 16;
-            this.btnguardar.Location = new System.Drawing.Point(35, 294);
+            this.btnguardar.Location = new System.Drawing.Point(35, 390);
             this.btnguardar.Name = "btnguardar";
             this.btnguardar.Size = new System.Drawing.Size(192, 23);
             this.btnguardar.TabIndex = 43;
@@ -324,7 +346,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(32, 239);
+            this.label8.Location = new System.Drawing.Point(32, 335);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 13);
             this.label8.TabIndex = 42;
@@ -334,7 +356,7 @@
             // 
             this.cboestado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboestado.FormattingEnabled = true;
-            this.cboestado.Location = new System.Drawing.Point(35, 255);
+            this.cboestado.Location = new System.Drawing.Point(35, 351);
             this.cboestado.Name = "cboestado";
             this.cboestado.Size = new System.Drawing.Size(192, 21);
             this.cboestado.TabIndex = 41;
@@ -418,12 +440,56 @@
             this.label1.Size = new System.Drawing.Size(261, 491);
             this.label1.TabIndex = 28;
             // 
+            // txtfechanacimiento
+            // 
+            this.txtfechanacimiento.AutoSize = true;
+            this.txtfechanacimiento.BackColor = System.Drawing.Color.White;
+            this.txtfechanacimiento.Location = new System.Drawing.Point(32, 286);
+            this.txtfechanacimiento.Name = "txtfechanacimiento";
+            this.txtfechanacimiento.Size = new System.Drawing.Size(109, 13);
+            this.txtfechanacimiento.TabIndex = 58;
+            this.txtfechanacimiento.Text = "Fecha de nacimiento:";
+            // 
+            // txtdireccion
+            // 
+            this.txtdireccion.Location = new System.Drawing.Point(35, 255);
+            this.txtdireccion.Name = "txtdireccion";
+            this.txtdireccion.Size = new System.Drawing.Size(192, 20);
+            this.txtdireccion.TabIndex = 57;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(32, 239);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 13);
+            this.label7.TabIndex = 56;
+            this.label7.Text = "Dirección:";
+            // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.CustomFormat = "dd/MM/yyyy";
+            this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(35, 303);
+            this.dtpFechaNacimiento.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.dtpFechaNacimiento.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(191, 20);
+            this.dtpFechaNacimiento.TabIndex = 59;
+            this.dtpFechaNacimiento.Value = new System.DateTime(2024, 11, 4, 0, 0, 0, 0);
+            // 
             // frmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources.Imagen_de_WhatsApp_2024_11_11_a_las_15_45_44_ec0335f2;
             this.ClientSize = new System.Drawing.Size(1146, 491);
+            this.Controls.Add(this.dtpFechaNacimiento);
+            this.Controls.Add(this.txtfechanacimiento);
+            this.Controls.Add(this.txtdireccion);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnbuscar);
             this.Controls.Add(this.dgvdata);
             this.Controls.Add(this.btnlimpiarbuscador);
@@ -483,12 +549,18 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label txtfechanacimiento;
+        private System.Windows.Forms.TextBox txtdireccion;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
         private System.Windows.Forms.DataGridViewButtonColumn btnseleccionar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Documento;
         private System.Windows.Forms.DataGridViewTextBoxColumn NombreCompleto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Correo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Direccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaNacimiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn EstadoValor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
     }

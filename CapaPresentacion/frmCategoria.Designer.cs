@@ -104,6 +104,8 @@
             this.dgvdata.RowTemplate.Height = 28;
             this.dgvdata.Size = new System.Drawing.Size(841, 374);
             this.dgvdata.TabIndex = 47;
+            this.dgvdata.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdata_CellContentClick);
+            this.dgvdata.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvdata_CellPainting);
             // 
             // btnseleccionar
             // 
@@ -164,7 +166,6 @@
             this.txtbusqueda.Name = "txtbusqueda";
             this.txtbusqueda.Size = new System.Drawing.Size(152, 20);
             this.txtbusqueda.TabIndex = 52;
-            this.txtbusqueda.TextChanged += new System.EventHandler(this.txtbusqueda_TextChanged);
             // 
             // cbobusqueda
             // 
@@ -174,7 +175,6 @@
             this.cbobusqueda.Name = "cbobusqueda";
             this.cbobusqueda.Size = new System.Drawing.Size(116, 21);
             this.cbobusqueda.TabIndex = 51;
-            this.cbobusqueda.SelectedIndexChanged += new System.EventHandler(this.cbobusqueda_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -309,7 +309,6 @@
             this.cboestado.Name = "cboestado";
             this.cboestado.Size = new System.Drawing.Size(192, 21);
             this.cboestado.TabIndex = 41;
-            this.cboestado.SelectedIndexChanged += new System.EventHandler(this.cboestado_SelectedIndexChanged);
             // 
             // txtdescripcion
             // 
@@ -317,7 +316,6 @@
             this.txtdescripcion.Name = "txtdescripcion";
             this.txtdescripcion.Size = new System.Drawing.Size(192, 20);
             this.txtdescripcion.TabIndex = 32;
-            this.txtdescripcion.TextChanged += new System.EventHandler(this.txtdescripcion_TextChanged);
             // 
             // label2
             // 
@@ -344,7 +342,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources.Imagen_de_WhatsApp_2024_11_11_a_las_15_45_44_ec0335f2;
             this.ClientSize = new System.Drawing.Size(1133, 552);
             this.Controls.Add(this.btnbuscar);
             this.Controls.Add(this.dgvdata);
@@ -366,6 +365,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmCategoria";
             this.Text = "frmCategoria";
+            this.Load += new System.EventHandler(this.frmCategoria_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

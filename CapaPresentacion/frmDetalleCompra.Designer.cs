@@ -125,9 +125,9 @@
             this.label26.BackColor = System.Drawing.Color.White;
             this.label26.Location = new System.Drawing.Point(483, 62);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(105, 13);
+            this.label26.Size = new System.Drawing.Size(121, 13);
             this.label26.TabIndex = 197;
-            this.label26.Text = "Numero Documento:";
+            this.label26.Text = "Numero Factura/Boleta:";
             // 
             // txtbusqueda
             // 
@@ -377,7 +377,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::CapaPresentacion.Properties.Resources._13183281_1065443036886929_936090605_a;
+            this.BackgroundImage = global::CapaPresentacion.Properties.Resources.Imagen_de_WhatsApp_2024_11_11_a_las_15_45_44_ec0335f2;
             this.ClientSize = new System.Drawing.Size(1132, 620);
             this.Controls.Add(this.btndescargar);
             this.Controls.Add(this.label1);
